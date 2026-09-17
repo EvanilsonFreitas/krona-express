@@ -99,10 +99,10 @@ export function HeroSection() {
               </div>
 
               {/* Divisor */}
-              <div className="flex items-center gap-3 py-1">
-                <div className="h-px w-full bg-slate-100 dark:bg-slate-800"></div>
-                <span className="text-xs text-slate-400 font-semibold uppercase tracking-widest shrink-0">Seus Dados</span>
-                <div className="h-px w-full bg-slate-100 dark:bg-slate-800"></div>
+              <div className="flex items-center gap-3 py-3">
+                <div className="h-px w-full bg-slate-300 dark:bg-slate-700"></div>
+                <span className="text-xs text-slate-400 font-bold uppercase tracking-widest shrink-0">Seus Dados</span>
+                <div className="h-px w-full bg-slate-300 dark:bg-slate-700"></div>
               </div>
 
               {/* Bloco 2: Contato */}
