@@ -5,9 +5,36 @@ import { Mail01Icon, Mouse01Icon } from "hugeicons-react";
 import { Badge } from "@/components/ui/badge";
 import { Parallax } from "@/components/ui/parallax";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { heroQuoteSchema, HeroQuoteFormValues } from "@/lib/validations";
+import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
+
 export function HeroSection() {
   const isProd = process.env.NODE_ENV === 'production';
   const basePath = isProd ? '/krona-express' : '';
+
+  const form = useForm<HeroQuoteFormValues>({
+    resolver: zodResolver(heroQuoteSchema),
+    defaultValues: {
+      origem: "",
+      destino: "",
+      valor_nf: "",
+      qtd: "",
+      peso: "",
+      nome: "",
+      email: "",
+      whatsapp: "",
+    },
+  });
+
+  function onSubmit(data: HeroQuoteFormValues) {
+    console.log("Hero Form Data:", data);
+    alert("Cotação enviada com sucesso! Entraremos em contato em breve.");
+    form.reset();
+  }
+
+  const inputClasses = "w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all aria-invalid:border-red-500 aria-invalid:ring-red-500/20 aria-invalid:ring-4 dark:aria-invalid:border-red-500/80";
 
   return (
     <section className="relative min-h-[100vh] lg:min-h-[110vh] w-full max-w-[1920px] mx-auto flex flex-col justify-start pt-32 lg:pt-40 overflow-hidden bg-[#070d1f]">
@@ -78,49 +105,134 @@ export function HeroSection() {
               <p className="text-slate-500 mt-2 text-sm font-medium">Preencha os dados abaixo e entraremos em contato imediatamente.</p>
             </div>
 
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
-
-              {/* Bloco 1: Logística */}
-              <div className="space-y-4">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="relative group">
-                    <input type="text" placeholder="Origem da carga" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+            <Form {...form}>
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                {/* Bloco 1: Logística */}
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="origem"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <input {...field} placeholder="Origem da carga *" className={inputClasses} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="destino"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <input {...field} placeholder="Destino da carga *" className={inputClasses} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
-                  <div className="relative group">
-                    <input type="text" placeholder="Destino da carga" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+
+                  <div className="grid grid-cols-3 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="valor_nf"
+                      render={({ field }) => (
+                        <FormItem className="col-span-3 sm:col-span-1">
+                          <FormControl>
+                            <input {...field} placeholder="Valor (NF) *" className={inputClasses} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="qtd"
+                      render={({ field }) => (
+                        <FormItem className="col-span-1">
+                          <FormControl>
+                            <input {...field} type="number" placeholder="Qtd *" className={inputClasses} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="peso"
+                      render={({ field }) => (
+                        <FormItem className="col-span-2 sm:col-span-1">
+                          <FormControl>
+                            <input {...field} placeholder="Peso (kg) *" className={inputClasses} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-4">
-                  <input type="text" placeholder="Valor (NF)" className="col-span-3 sm:col-span-1 w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
-                  <input type="number" placeholder="Qtd" className="col-span-1 w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
-                  <input type="text" placeholder="Peso (kg)" className="col-span-2 sm:col-span-1 w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+                {/* Divisor */}
+                <div className="flex items-center gap-3 py-3">
+                  <div className="h-px w-full bg-slate-300 dark:bg-slate-700"></div>
+                  <span className="text-xs text-slate-400 font-bold uppercase tracking-widest shrink-0">Seus Dados</span>
+                  <div className="h-px w-full bg-slate-300 dark:bg-slate-700"></div>
                 </div>
-              </div>
 
-              {/* Divisor */}
-              <div className="flex items-center gap-3 py-3">
-                <div className="h-px w-full bg-slate-300 dark:bg-slate-700"></div>
-                <span className="text-xs text-slate-400 font-bold uppercase tracking-widest shrink-0">Seus Dados</span>
-                <div className="h-px w-full bg-slate-300 dark:bg-slate-700"></div>
-              </div>
+                {/* Bloco 2: Contato */}
+                <div className="space-y-4">
+                  <FormField
+                    control={form.control}
+                    name="nome"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <input {...field} placeholder="Nome Completo / Empresa *" className={inputClasses} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
 
-              {/* Bloco 2: Contato */}
-              <div className="space-y-4">
-                <input type="text" placeholder="Nome Completo / Empresa" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <input type="email" placeholder="Seu melhor e-mail" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
-                  <input type="tel" placeholder="WhatsApp" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <FormField
+                      control={form.control}
+                      name="email"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <input {...field} type="email" placeholder="Seu melhor e-mail *" className={inputClasses} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={form.control}
+                      name="whatsapp"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <input {...field} type="tel" placeholder="WhatsApp *" className={inputClasses} />
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                  </div>
                 </div>
-              </div>
 
-              {/* Botão de Envio */}
-              <button type="submit" className="w-full bg-[#114092] hover:bg-[#0c2f6d] text-white font-bold text-base py-4 rounded-xl transition-all shadow-[0_8px_20px_rgba(17,64,146,0.3)] hover:shadow-[0_10px_25px_rgba(17,64,146,0.4)] active:scale-[0.98] mt-4 flex items-center justify-center gap-2 group cursor-pointer">
-                Solicitar Cotação
-                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-              </button>
-            </form>
+                {/* Botão de Envio */}
+                <button type="submit" className="w-full bg-[#114092] hover:bg-[#0c2f6d] text-white font-bold text-base py-4 rounded-xl transition-all shadow-[0_8px_20px_rgba(17,64,146,0.3)] hover:shadow-[0_10px_25px_rgba(17,64,146,0.4)] active:scale-[0.98] mt-4 flex items-center justify-center gap-2 group cursor-pointer">
+                  Solicitar Cotação
+                  <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                </button>
+              </form>
+            </Form>
           </div>
         </Parallax>
       </div>
