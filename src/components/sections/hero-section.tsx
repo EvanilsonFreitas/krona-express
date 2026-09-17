@@ -149,7 +149,10 @@ export function HeroSection() {
                               inputMode="numeric" 
                               placeholder="Valor (NF) *" 
                               className={inputClasses}
-                              onChange={(e) => field.onChange(e.target.value.replace(/[^\d.,]/g, ''))}
+                              onChange={(e) => {
+                                e.target.value = e.target.value.replace(/[^\d.,]/g, '');
+                                field.onChange(e);
+                              }}
                             />
                           </FormControl>
                           <FormMessage />
@@ -167,7 +170,10 @@ export function HeroSection() {
                               inputMode="numeric" 
                               placeholder="Qtd *" 
                               className={inputClasses}
-                              onChange={(e) => field.onChange(e.target.value.replace(/[^\d]/g, ''))}
+                              onChange={(e) => {
+                                e.target.value = e.target.value.replace(/[^\d]/g, '');
+                                field.onChange(e);
+                              }}
                             />
                           </FormControl>
                           <FormMessage />
@@ -185,7 +191,10 @@ export function HeroSection() {
                               inputMode="numeric" 
                               placeholder="Peso (kg) *" 
                               className={inputClasses}
-                              onChange={(e) => field.onChange(e.target.value.replace(/[^\d.,]/g, ''))}
+                              onChange={(e) => {
+                                e.target.value = e.target.value.replace(/[^\d.,]/g, '');
+                                field.onChange(e);
+                              }}
                             />
                           </FormControl>
                           <FormMessage />
@@ -241,7 +250,10 @@ export function HeroSection() {
                               type="tel" 
                               placeholder="WhatsApp *" 
                               className={inputClasses}
-                              onChange={(e) => field.onChange(maskPhone(e.target.value))}
+                              onChange={(e) => {
+                                e.target.value = maskPhone(e.target.value);
+                                field.onChange(e);
+                              }}
                             />
                           </FormControl>
                           <FormMessage />

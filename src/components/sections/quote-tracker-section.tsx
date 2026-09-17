@@ -148,7 +148,7 @@ export function QuoteTrackerSection() {
                                     <SelectValue placeholder="Selecione..." />
                                   </SelectTrigger>
                                 </FormControl>
-                                <SelectContent>
+                                <SelectContent position="popper">
                                   <SelectItem value="lotacao">Carga Lotação</SelectItem>
                                   <SelectItem value="fracionada">Carga Fracionada</SelectItem>
                                   <SelectItem value="dedicada">Operação Dedicada</SelectItem>
@@ -170,7 +170,10 @@ export function QuoteTrackerSection() {
                                   placeholder="Ex: 5000" 
                                   className="h-11" 
                                   {...field} 
-                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d.,]/g, ''))}
+                                  onChange={(e) => {
+                                    e.target.value = e.target.value.replace(/[^\d.,]/g, '');
+                                    field.onChange(e);
+                                  }}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -189,7 +192,10 @@ export function QuoteTrackerSection() {
                                   placeholder="Ex: 15000.00" 
                                   className="h-11" 
                                   {...field} 
-                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d.,]/g, ''))}
+                                  onChange={(e) => {
+                                    e.target.value = e.target.value.replace(/[^\d.,]/g, '');
+                                    field.onChange(e);
+                                  }}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -226,7 +232,10 @@ export function QuoteTrackerSection() {
                                   placeholder="(00) 00000-0000" 
                                   className="h-11" 
                                   {...field} 
-                                  onChange={(e) => field.onChange(maskPhone(e.target.value))}
+                                  onChange={(e) => {
+                                    e.target.value = maskPhone(e.target.value);
+                                    field.onChange(e);
+                                  }}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -242,9 +251,9 @@ export function QuoteTrackerSection() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-sm font-semibold text-foreground/80">Observações / Especificações</FormLabel>
-                            <FormControl>
-                              <Textarea placeholder="Dimensões, restrições de coleta, necessidade de agendamento..." className="min-h-[120px] resize-none" {...field} />
-                            </FormControl>
+                              <FormControl>
+                                <Textarea placeholder="Dimensões, restrições de coleta, necessidade de agendamento..." className="min-h-24" {...field} />
+                              </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -294,7 +303,10 @@ export function QuoteTrackerSection() {
                                   placeholder="00.000.000/0000-00" 
                                   className="h-11" 
                                   {...field} 
-                                  onChange={(e) => field.onChange(maskCNPJ(e.target.value))}
+                                  onChange={(e) => {
+                                    e.target.value = maskCNPJ(e.target.value);
+                                    field.onChange(e);
+                                  }}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -312,7 +324,10 @@ export function QuoteTrackerSection() {
                                   placeholder="Ex: 12345" 
                                   className="h-11" 
                                   {...field} 
-                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d]/g, ''))}
+                                  onChange={(e) => {
+                                    e.target.value = e.target.value.replace(/[^\d]/g, '');
+                                    field.onChange(e);
+                                  }}
                                 />
                               </FormControl>
                               <FormMessage />
