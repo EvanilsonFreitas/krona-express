@@ -164,7 +164,7 @@ export function QuoteTrackerSection() {
                             <FormItem>
                               <FormLabel className="text-sm font-semibold text-foreground/80">Peso (kg) <span className="text-red-500 ml-1">*</span></FormLabel>
                               <FormControl>
-                                <Input type="number" placeholder="Ex: 5000" className="h-11" {...field} />
+                                <Input inputMode="numeric" placeholder="Ex: 5000" className="h-11" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -177,7 +177,7 @@ export function QuoteTrackerSection() {
                             <FormItem>
                               <FormLabel className="text-sm font-semibold text-foreground/80">Valor da NF (R$) <span className="text-red-500 ml-1">*</span></FormLabel>
                               <FormControl>
-                                <Input type="number" placeholder="Ex: 15000.00" className="h-11" {...field} />
+                                <Input inputMode="numeric" placeholder="Ex: 15000.00" className="h-11" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -207,7 +207,7 @@ export function QuoteTrackerSection() {
                             <FormItem>
                               <FormLabel className="text-sm font-semibold text-foreground/80">Telefone / WhatsApp <span className="text-red-500 ml-1">*</span></FormLabel>
                               <FormControl>
-                                <Input placeholder="(00) 00000-0000" className="h-11" {...field} />
+                                <Input type="tel" inputMode="numeric" placeholder="(00) 00000-0000" className="h-11" {...field} />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
