@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { Mail01Icon, Mouse01Icon } from "hugeicons-react";
-
+import { Badge } from "@/components/ui/badge";
+import { Parallax } from "@/components/ui/parallax";
 
 export function HeroSection() {
   const isProd = process.env.NODE_ENV === 'production';
@@ -12,7 +13,7 @@ export function HeroSection() {
     <section className="relative min-h-[100vh] lg:min-h-[110vh] w-full max-w-[1920px] mx-auto flex flex-col justify-start pt-32 lg:pt-40 overflow-hidden bg-[#070d1f]">
       {/* Container da Imagem que assume a altura exata da imagem */}
       <div className="absolute top-0 left-0 w-full z-0">
-        <img 
+        <img
           src={`${basePath}/images/pages/home/Fundo_Header.png`}
           alt="Background Hero"
           className="w-full h-auto object-top"
@@ -68,48 +69,64 @@ export function HeroSection() {
         </div>
 
         {/* Coluna da Direita (Card Flutuante de Cotação) */}
-        <div className="lg:col-span-5 w-full relative z-20 lg:translate-y-16">
-          <div className="bg-white/98 dark:bg-slate-900/98 rounded-3xl shadow-2xl p-6 sm:p-8 border border-white/60 dark:border-slate-800 backdrop-blur-md w-full max-w-lg mx-auto lg:ml-auto">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white text-center mb-6">Faça uma cotação</h2>
+        <Parallax speed={0.15} className="lg:col-span-5 w-full relative z-20 lg:translate-y-16">
+          <div className="bg-white/95 dark:bg-slate-900/95 rounded-[32px] shadow-[0_20px_80px_rgba(0,0,0,0.15)] p-6 sm:p-10 border border-white/80 dark:border-slate-700/50 backdrop-blur-2xl w-full max-w-lg mx-auto lg:ml-auto">
 
-            <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <input type="text" placeholder="Origem da carga" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" />
-                <input type="text" placeholder="Destino da carga" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" />
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                <input type="text" placeholder="Valor da nota" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" />
-                <input type="number" placeholder="Quantidade" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" />
-                <input type="text" placeholder="Peso (kg)" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" />
-              </div>
+            <div className="mb-8 text-center">
+              <Badge variant="outline" className="mb-3 bg-blue-50 text-[#114092] border-blue-200 px-3 py-1 text-xs tracking-wider">RESPOSTA EM 15 MIN</Badge>
+              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">Faça sua Cotação</h2>
+              <p className="text-slate-500 mt-2 text-sm font-medium">Preencha os dados abaixo e entraremos em contato imediatamente.</p>
+            </div>
 
-              <textarea placeholder="Dados da carga / Descrição" rows={4} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow resize-none"></textarea>
+            <form onSubmit={(e) => e.preventDefault()} className="space-y-5">
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <div className="space-y-1">
-                  <label className="text-sm text-slate-600 dark:text-slate-400 font-medium">Seu nome</label>
-                  <input type="text" placeholder="Nome e sobrenome" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" />
+              {/* Bloco 1: Logística */}
+              <div className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="relative group">
+                    <input type="text" placeholder="Origem da carga" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+                  </div>
+                  <div className="relative group">
+                    <input type="text" placeholder="Destino da carga" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+                  </div>
                 </div>
-                <div className="space-y-1">
-                  <label className="text-sm text-slate-600 dark:text-slate-400 font-medium">WhatsApp</label>
-                  <input type="tel" placeholder="(11) 9 9999-9999" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" />
+
+                <div className="grid grid-cols-3 gap-4">
+                  <input type="text" placeholder="Valor (NF)" className="col-span-3 sm:col-span-1 w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+                  <input type="number" placeholder="Qtd" className="col-span-1 w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+                  <input type="text" placeholder="Peso (kg)" className="col-span-2 sm:col-span-1 w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
                 </div>
               </div>
-              <div className="space-y-1">
-                <label className="text-sm text-slate-600 dark:text-slate-400 font-medium">Seu e-mail</label>
-                <input type="email" placeholder="Exemplo@gmail.com" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 transition-shadow" />
+
+              {/* Divisor */}
+              <div className="flex items-center gap-3 py-1">
+                <div className="h-px w-full bg-slate-100 dark:bg-slate-800"></div>
+                <span className="text-xs text-slate-400 font-semibold uppercase tracking-widest shrink-0">Seus Dados</span>
+                <div className="h-px w-full bg-slate-100 dark:bg-slate-800"></div>
               </div>
 
-              <button type="submit" className="w-full bg-[#114092] hover:bg-blue-800 text-white font-bold py-4 rounded-xl transition-all shadow-lg hover:shadow-blue-900/30 active:scale-[0.98] mt-2">
-                Solicitar cotação
+              {/* Bloco 2: Contato */}
+              <div className="space-y-4">
+                <input type="text" placeholder="Nome Completo / Empresa" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <input type="email" placeholder="Seu melhor e-mail" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+                  <input type="tel" placeholder="WhatsApp" className="w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all" />
+                </div>
+              </div>
+
+              {/* Botão de Envio */}
+              <button type="submit" className="w-full bg-[#114092] hover:bg-[#0c2f6d] text-white font-bold text-base py-4 rounded-xl transition-all shadow-[0_8px_20px_rgba(17,64,146,0.3)] hover:shadow-[0_10px_25px_rgba(17,64,146,0.4)] active:scale-[0.98] mt-4 flex items-center justify-center gap-2 group cursor-pointer">
+                Solicitar Cotação
+                <svg className="w-5 h-5 transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
               </button>
             </form>
           </div>
-        </div>
+        </Parallax>
       </div>
 
       {/* Indicador de Scroll (Mouse) */}
-      <div 
+      <div
         className="absolute bottom-24 lg:bottom-32 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer opacity-70 hover:opacity-100 transition-opacity animate-bounce"
         style={{ animationDuration: '3s' }}
         onClick={() => window.scrollTo({ top: window.innerHeight * 0.9, behavior: 'smooth' })}
