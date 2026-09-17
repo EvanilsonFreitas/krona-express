@@ -7,7 +7,8 @@ import { Parallax } from "@/components/ui/parallax";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { heroQuoteSchema, HeroQuoteFormValues } from "@/lib/validations";
+import { heroQuoteSchema, type HeroQuoteFormValues } from "@/lib/validations";
+import { maskPhone } from "@/lib/masks";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 
 export function HeroSection() {
@@ -240,7 +241,7 @@ export function HeroSection() {
                               type="tel" 
                               placeholder="WhatsApp *" 
                               className={inputClasses}
-                              onChange={(e) => field.onChange(e.target.value.replace(/[^\d\s\-\+\(\)]/g, ''))}
+                              onChange={(e) => field.onChange(maskPhone(e.target.value))}
                             />
                           </FormControl>
                           <FormMessage />
