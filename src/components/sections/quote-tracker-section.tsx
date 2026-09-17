@@ -12,7 +12,8 @@ import { motion } from "motion/react";
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { detailedQuoteSchema, trackerSchema, DetailedQuoteFormValues, TrackerFormValues } from "@/lib/validations";
+import { detailedQuoteSchema, trackerSchema, type DetailedQuoteFormValues, type TrackerFormValues } from "@/lib/validations";
+import { maskPhone, maskCNPJ } from "@/lib/masks";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 export function QuoteTrackerSection() {
@@ -225,7 +226,7 @@ export function QuoteTrackerSection() {
                                   placeholder="(00) 00000-0000" 
                                   className="h-11" 
                                   {...field} 
-                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d\s\-\+\(\)]/g, ''))}
+                                  onChange={(e) => field.onChange(maskPhone(e.target.value))}
                                 />
                               </FormControl>
                               <FormMessage />
@@ -293,7 +294,7 @@ export function QuoteTrackerSection() {
                                   placeholder="00.000.000/0000-00" 
                                   className="h-11" 
                                   {...field} 
-                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d\.\-\/]/g, ''))}
+                                  onChange={(e) => field.onChange(maskCNPJ(e.target.value))}
                                 />
                               </FormControl>
                               <FormMessage />
