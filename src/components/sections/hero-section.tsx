@@ -143,7 +143,7 @@ export function HeroSection() {
                       render={({ field }) => (
                         <FormItem className="col-span-3 sm:col-span-1">
                           <FormControl>
-                            <input {...field} placeholder="Valor (NF) *" className={inputClasses} />
+                            <input {...field} inputMode="numeric" placeholder="Valor (NF) *" className={inputClasses} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -155,7 +155,7 @@ export function HeroSection() {
                       render={({ field }) => (
                         <FormItem className="col-span-1">
                           <FormControl>
-                            <input {...field} type="number" placeholder="Qtd *" className={inputClasses} />
+                            <input {...field} inputMode="numeric" placeholder="Qtd *" className={inputClasses} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -167,7 +167,7 @@ export function HeroSection() {
                       render={({ field }) => (
                         <FormItem className="col-span-2 sm:col-span-1">
                           <FormControl>
-                            <input {...field} placeholder="Peso (kg) *" className={inputClasses} />
+                            <input {...field} inputMode="numeric" placeholder="Peso (kg) *" className={inputClasses} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
