@@ -9,10 +9,19 @@ export const metadata: Metadata = {
   title: "Krona Express",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+import { VLibras } from "@/components/vlibras";
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html lang="pt-BR" className={cn("font-sans", geist.variable)}>
-      <body>{children}</body>
+      <body>
+        {children}
+        <VLibras />
+      </body>
     </html>
   );
 }
