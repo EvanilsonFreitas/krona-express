@@ -143,7 +143,13 @@ export function HeroSection() {
                       render={({ field }) => (
                         <FormItem className="col-span-3 sm:col-span-1">
                           <FormControl>
-                            <input {...field} inputMode="numeric" placeholder="Valor (NF) *" className={inputClasses} />
+                            <input 
+                              {...field} 
+                              inputMode="numeric" 
+                              placeholder="Valor (NF) *" 
+                              className={inputClasses}
+                              onChange={(e) => field.onChange(e.target.value.replace(/[^\d.,]/g, ''))}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -155,7 +161,13 @@ export function HeroSection() {
                       render={({ field }) => (
                         <FormItem className="col-span-1">
                           <FormControl>
-                            <input {...field} inputMode="numeric" placeholder="Qtd *" className={inputClasses} />
+                            <input 
+                              {...field} 
+                              inputMode="numeric" 
+                              placeholder="Qtd *" 
+                              className={inputClasses}
+                              onChange={(e) => field.onChange(e.target.value.replace(/[^\d]/g, ''))}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -167,7 +179,13 @@ export function HeroSection() {
                       render={({ field }) => (
                         <FormItem className="col-span-2 sm:col-span-1">
                           <FormControl>
-                            <input {...field} inputMode="numeric" placeholder="Peso (kg) *" className={inputClasses} />
+                            <input 
+                              {...field} 
+                              inputMode="numeric" 
+                              placeholder="Peso (kg) *" 
+                              className={inputClasses}
+                              onChange={(e) => field.onChange(e.target.value.replace(/[^\d.,]/g, ''))}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -217,7 +235,13 @@ export function HeroSection() {
                       render={({ field }) => (
                         <FormItem>
                           <FormControl>
-                            <input {...field} type="tel" placeholder="WhatsApp *" className={inputClasses} />
+                            <input 
+                              {...field} 
+                              type="tel" 
+                              placeholder="WhatsApp *" 
+                              className={inputClasses}
+                              onChange={(e) => field.onChange(e.target.value.replace(/[^\d\s\-\+\(\)]/g, ''))}
+                            />
                           </FormControl>
                           <FormMessage />
                         </FormItem>

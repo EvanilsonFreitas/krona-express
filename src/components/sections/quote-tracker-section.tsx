@@ -164,7 +164,13 @@ export function QuoteTrackerSection() {
                             <FormItem>
                               <FormLabel className="text-sm font-semibold text-foreground/80">Peso (kg) <span className="text-red-500 ml-1">*</span></FormLabel>
                               <FormControl>
-                                <Input inputMode="numeric" placeholder="Ex: 5000" className="h-11" {...field} />
+                                <Input 
+                                  inputMode="numeric" 
+                                  placeholder="Ex: 5000" 
+                                  className="h-11" 
+                                  {...field} 
+                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d.,]/g, ''))}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -177,7 +183,13 @@ export function QuoteTrackerSection() {
                             <FormItem>
                               <FormLabel className="text-sm font-semibold text-foreground/80">Valor da NF (R$) <span className="text-red-500 ml-1">*</span></FormLabel>
                               <FormControl>
-                                <Input inputMode="numeric" placeholder="Ex: 15000.00" className="h-11" {...field} />
+                                <Input 
+                                  inputMode="numeric" 
+                                  placeholder="Ex: 15000.00" 
+                                  className="h-11" 
+                                  {...field} 
+                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d.,]/g, ''))}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -207,7 +219,14 @@ export function QuoteTrackerSection() {
                             <FormItem>
                               <FormLabel className="text-sm font-semibold text-foreground/80">Telefone / WhatsApp <span className="text-red-500 ml-1">*</span></FormLabel>
                               <FormControl>
-                                <Input type="tel" inputMode="numeric" placeholder="(00) 00000-0000" className="h-11" {...field} />
+                                <Input 
+                                  type="tel" 
+                                  inputMode="numeric" 
+                                  placeholder="(00) 00000-0000" 
+                                  className="h-11" 
+                                  {...field} 
+                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d\s\-\+\(\)]/g, ''))}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -270,7 +289,12 @@ export function QuoteTrackerSection() {
                             <FormItem>
                               <FormLabel className="text-sm font-semibold text-foreground/80">CNPJ (Embarcador ou Pagador) <span className="text-red-500 ml-1">*</span></FormLabel>
                               <FormControl>
-                                <Input placeholder="00.000.000/0000-00" className="h-11" {...field} />
+                                <Input 
+                                  placeholder="00.000.000/0000-00" 
+                                  className="h-11" 
+                                  {...field} 
+                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d\.\-\/]/g, ''))}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
@@ -283,7 +307,12 @@ export function QuoteTrackerSection() {
                             <FormItem>
                               <FormLabel className="text-sm font-semibold text-foreground/80">Número da NF ou CT-e <span className="text-red-500 ml-1">*</span></FormLabel>
                               <FormControl>
-                                <Input placeholder="Ex: 12345" className="h-11" {...field} />
+                                <Input 
+                                  placeholder="Ex: 12345" 
+                                  className="h-11" 
+                                  {...field} 
+                                  onChange={(e) => field.onChange(e.target.value.replace(/[^\d]/g, ''))}
+                                />
                               </FormControl>
                               <FormMessage />
                             </FormItem>
