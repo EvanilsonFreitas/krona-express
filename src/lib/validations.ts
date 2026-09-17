@@ -31,7 +31,7 @@ export const detailedQuoteSchema = z.object({
 export type DetailedQuoteFormValues = z.infer<typeof detailedQuoteSchema>;
 
 export const trackerSchema = z.object({
-  cnpj: z.string().regex(/^[\d\.\-\/]+$/, "Insira apenas números e pontuações do CNPJ.").min(14, "CNPJ inválido (mínimo 14 caracteres)."),
+  cnpj: z.string().regex(/^[\d\.\-\/]+$/, "Insira apenas números e pontuações válidas.").min(11, "CPF ou CNPJ inválido (mínimo 11 caracteres)."),
   nota: z.string().regex(numberRegex, "A NF deve conter apenas números.").min(1, "A NF é obrigatória."),
 });
 

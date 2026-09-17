@@ -13,7 +13,7 @@ import { motion } from "motion/react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { detailedQuoteSchema, trackerSchema, type DetailedQuoteFormValues, type TrackerFormValues } from "@/lib/validations";
-import { maskPhone, maskCNPJ } from "@/lib/masks";
+import { maskPhone, maskCpfCnpj } from "@/lib/masks";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 export function QuoteTrackerSection() {
@@ -297,14 +297,14 @@ export function QuoteTrackerSection() {
                           name="cnpj"
                           render={({ field }) => (
                             <FormItem>
-                              <FormLabel className="text-sm font-semibold text-foreground/80">CNPJ (Embarcador ou Pagador) <span className="text-red-500 ml-1">*</span></FormLabel>
+                              <FormLabel className="text-sm font-semibold text-foreground/80">CPF / CNPJ (Embarcador ou Pagador) <span className="text-red-500 ml-1">*</span></FormLabel>
                               <FormControl>
                                 <Input 
-                                  placeholder="00.000.000/0000-00" 
+                                  placeholder="000.000.000-00 ou 00.000.000/0000-00" 
                                   className="h-11" 
                                   {...field} 
                                   onChange={(e) => {
-                                    e.target.value = maskCNPJ(e.target.value);
+                                    e.target.value = maskCpfCnpj(e.target.value);
                                     field.onChange(e);
                                   }}
                                 />
