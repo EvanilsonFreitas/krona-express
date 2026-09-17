@@ -29,11 +29,6 @@ export default function Home() {
 
         <FadeIn direction="up">
           <ServicesSection />
-          <div className="flex justify-center pb-12 bg-background">
-            <Button asChild variant="outline" size="lg" className="border-primary text-primary hover:bg-primary/5">
-              <Link href="/servicos">Ver todos os detalhes dos serviços</Link>
-            </Button>
-          </div>
         </FadeIn>
 
         <FadeIn direction="up">
