@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 import { VLibras } from "@/components/vlibras";
+import { FloatingWhatsApp } from "@/components/floating-whatsapp";
 
 export default function RootLayout({
   children,
@@ -21,6 +22,7 @@ export default function RootLayout({
       <body>
         {children}
         <VLibras />
+        <FloatingWhatsApp />
       </body>
     </html>
   );

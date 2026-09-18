@@ -1,6 +1,5 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { AboutSection } from "@/components/sections/about-section";
 import { AboutContentSection } from "@/components/sections/about-content-section";
 
 export default function SobrePage() {
@@ -17,7 +16,6 @@ export default function SobrePage() {
             </p>
           </div>
         </div>
-        <AboutSection />
         <AboutContentSection />
       </main>
       <Footer />

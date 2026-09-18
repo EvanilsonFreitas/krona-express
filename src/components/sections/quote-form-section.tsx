@@ -20,7 +20,7 @@ export function QuoteFormSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <Card className="border-none shadow-xl bg-white overflow-hidden">
+            <Card className="border-none shadow-xl bg-white overflow-hidden p-0">
               <div className="bg-primary p-6 text-white flex items-center gap-4">
                 <DeliveryTruck01Icon className="w-8 h-8" />
                 <div>
@@ -94,7 +94,7 @@ export function QuoteFormSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.2 }}
           >
-            <Card className="border-none shadow-lg bg-emerald-50 relative overflow-hidden">
+            <Card className="border-none shadow-lg bg-emerald-50 relative overflow-hidden p-0">
               <div className="absolute top-0 right-0 w-32 h-32 bg-emerald-100 rounded-bl-full -z-10"></div>
               <CardContent className="p-8">
                 <Call02Icon className="w-12 h-12 text-emerald-600 mb-6" />
@@ -110,7 +110,7 @@ export function QuoteFormSection() {
               </CardContent>
             </Card>
 
-            <Card className="border-none shadow-lg bg-blue-50 relative overflow-hidden">
+            <Card className="border-none shadow-lg bg-blue-50 relative overflow-hidden p-0">
               <div className="absolute top-0 right-0 w-32 h-32 bg-blue-100 rounded-bl-full -z-10"></div>
               <CardContent className="p-8">
                 <InformationCircleIcon className="w-12 h-12 text-primary mb-6" />

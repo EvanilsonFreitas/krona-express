@@ -134,7 +134,7 @@ export function CoverageMapSection() {
                   </thead>
                   <tbody className="divide-y divide-slate-100">
                     {slaData.map((item, idx) => (
-                      <tr key={idx} className={`hover:bg-slate-50 transition-colors ${item.destaque ? 'bg-blue-50/50' : ''}`}>
+                      <tr key={idx} className={`hover:bg-slate-50 transition-colors cursor-pointer ${item.destaque ? 'bg-blue-50/50' : ''}`}>
                         <td className="p-4 font-medium text-slate-800 flex items-center gap-2">
                           {item.destaque && <span className="w-2 h-2 rounded-full bg-blue-500"></span>}
                           {item.route}
@@ -164,7 +164,7 @@ export function CoverageMapSection() {
               
               <div className="space-y-4">
                 {bases.map((base, idx) => (
-                  <Card key={idx} className="border border-slate-200 shadow-sm hover:border-primary/30 hover:shadow-md transition-all group">
+                  <Card key={idx} className="border border-slate-200 shadow-sm hover:border-primary/30 hover:shadow-md transition-all group cursor-pointer">
                     <CardContent className="p-5 flex items-center justify-between">
                       <div>
                         <h4 className="font-bold text-lg text-slate-900 group-hover:text-primary transition-colors">{base.city}</h4>

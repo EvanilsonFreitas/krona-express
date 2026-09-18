@@ -114,7 +114,7 @@ export function ServicesSection() {
             viewport={{ once: false, margin: "-50px" }}
             transition={{ duration: 1.0, ease: "easeOut" }}
           >
-            <h2 className="text-5xl lg:text-[64px] font-extrabold text-[#111111] leading-[1.1] tracking-tight">
+            <h2 className="text-4xl md:text-5xl lg:text-[64px] font-extrabold text-[#111111] leading-[1.1] tracking-tight">
               Soluções Logísticas Sob Medida
             </h2>
             <p className="text-slate-500 text-base md:text-lg leading-relaxed max-w-xl mx-auto lg:mx-0">

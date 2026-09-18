@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { motion } from "motion/react";
 
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { detailedQuoteSchema, trackerSchema, type DetailedQuoteFormValues, type TrackerFormValues } from "@/lib/validations";
@@ -17,6 +18,33 @@ import { maskPhone, maskCpfCnpj } from "@/lib/masks";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 
 export function QuoteTrackerSection() {
+  const [activeTab, setActiveTab] = useState("cotacao");
+
+  useEffect(() => {
+    let lastHash = window.location.hash;
+
+    const checkHash = () => {
+      const currentHash = window.location.hash;
+      if (currentHash !== lastHash) {
+        lastHash = currentHash;
+        if (currentHash === "#rastreamento") {
+          setActiveTab("rastreamento");
+        } else if (currentHash === "#cotacao") {
+          setActiveTab("cotacao");
+        }
+      }
+    };
+
+    // Check inicial ao montar o componente
+    if (lastHash === "#rastreamento") {
+      setActiveTab("rastreamento");
+    }
+
+    // Polling leve para detectar pushState do next/link (que não dispara hashchange)
+    const interval = setInterval(checkHash, 100);
+    return () => clearInterval(interval);
+  }, []);
+
   const quoteForm = useForm<DetailedQuoteFormValues>({
     resolver: zodResolver(detailedQuoteSchema),
     defaultValues: {
@@ -52,7 +80,11 @@ export function QuoteTrackerSection() {
   }
 
   return (
-    <section id="cotacao" className="w-full py-20 bg-background">
+    <section className="w-full py-20 bg-background relative">
+      {/* Âncoras invisíveis para navegação correta pelo menu */}
+      <div id="cotacao" className="absolute top-0 scroll-mt-24"></div>
+      <div id="rastreamento" className="absolute top-0 scroll-mt-24"></div>
+      
       <div className="container mx-auto px-4 max-w-4xl">
         <motion.div
           className="text-center space-y-4 mb-10"
@@ -75,18 +107,18 @@ export function QuoteTrackerSection() {
           viewport={{ once: false, margin: "-50px" }}
           transition={{ duration: 1.2, ease: "easeOut" }}
         >
-          <Tabs defaultValue="cotacao" className="w-full">
+          <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 mb-8 !h-[60px] bg-slate-100 dark:bg-slate-800/50 p-1.5 rounded-2xl">
               <TabsTrigger
                 value="cotacao"
-                className="flex items-center justify-center gap-2 text-base font-bold h-full text-slate-500 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-[#114092] dark:data-[state=active]:text-white transition-all rounded-xl data-[state=active]:shadow-sm"
+                className="flex items-center justify-center gap-2 text-base font-bold h-full text-slate-500 cursor-pointer data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-[#114092] dark:data-[state=active]:text-white transition-all rounded-xl data-[state=active]:shadow-sm"
               >
                 <DeliveryTruck01Icon className="w-5 h-5" />
                 Simular Cotação de Frete
               </TabsTrigger>
               <TabsTrigger
                 value="rastreamento"
-                className="flex items-center justify-center gap-2 text-base font-bold h-full text-slate-500 data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-[#114092] dark:data-[state=active]:text-white transition-all rounded-xl data-[state=active]:shadow-sm"
+                className="flex items-center justify-center gap-2 text-base font-bold h-full text-slate-500 cursor-pointer data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-[#114092] dark:data-[state=active]:text-white transition-all rounded-xl data-[state=active]:shadow-sm"
               >
                 <Search01Icon className="w-5 h-5" />
                 Rastrear Carga / Pedido
@@ -95,9 +127,9 @@ export function QuoteTrackerSection() {
 
             <TabsContent value="cotacao" className="focus-visible:outline-none focus-visible:ring-0">
               <Card className="shadow-lg border-border/50 !p-0 overflow-hidden">
-                <CardHeader className="bg-slate-50 dark:bg-slate-900 border-b p-6">
-                  <CardTitle className="text-2xl text-foreground">Solicite sua Cotação</CardTitle>
-                  <CardDescription className="text-base">
+                <CardHeader className="bg-[#114092] border-b-0 p-6">
+                  <CardTitle className="text-2xl text-white">Solicite sua Cotação</CardTitle>
+                  <CardDescription className="text-blue-100 text-base">
                     Preencha os dados abaixo. Nossa equipe comercial responderá com a proposta.
                   </CardDescription>
                 </CardHeader>
@@ -264,7 +296,7 @@ export function QuoteTrackerSection() {
                           <Button type="submit" size="sm" className="w-full sm:w-auto h-10 px-6 text-sm font-semibold shadow-md hover:shadow-lg transition-all bg-[#111111] hover:bg-black text-white cursor-pointer">
                             <DeliveryTruck01Icon className="mr-2 w-4 h-4" /> Solicitar Cotação
                           </Button>
-                          <Button asChild variant="outline" size="sm" className="w-full sm:w-auto h-10 px-6 text-sm font-semibold border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-950 cursor-pointer">
+                          <Button asChild variant="outline" size="sm" className="w-full sm:w-auto h-10 px-6 text-sm font-semibold border-green-600 text-green-600 hover:bg-green-600 hover:text-white transition-colors cursor-pointer">
                             <Link href="https://wa.me/551140000000?text=Ol%C3%A1%21+Gostaria+de+solicitar+uma+cota%C3%A7%C3%A3o+r%C3%A1pida+de+frete+com+a+Krona+Express." target="_blank" rel="noopener noreferrer">
                               Cotação via WhatsApp
                             </Link>
@@ -281,10 +313,10 @@ export function QuoteTrackerSection() {
             </TabsContent>
 
             <TabsContent value="rastreamento" className="focus-visible:outline-none focus-visible:ring-0">
-              <Card id="rastreamento" className="shadow-lg border-border/50 !p-0 overflow-hidden">
-                <CardHeader className="bg-slate-50 dark:bg-slate-900 border-b p-6">
-                  <CardTitle className="text-2xl text-foreground">Consultar Status da Carga</CardTitle>
-                  <CardDescription className="text-base">
+              <Card className="shadow-lg border-border/50 !p-0 overflow-hidden">
+                <CardHeader className="bg-[#114092] border-b-0 p-6">
+                  <CardTitle className="text-2xl text-white">Consultar Status da Carga</CardTitle>
+                  <CardDescription className="text-blue-100 text-base">
                     Acompanhe sua mercadoria informando os dados fiscais.
                   </CardDescription>
                 </CardHeader>

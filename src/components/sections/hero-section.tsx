@@ -58,7 +58,7 @@ export function HeroSection() {
 
         {/* Coluna da Esquerda (Textos e CTA) */}
         <div className="lg:col-span-7 flex flex-col justify-center text-left max-w-2xl">
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-md">
+          <h1 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight drop-shadow-md">
             Comprometimento <br /> e Pontualidade
           </h1>
 
@@ -71,7 +71,7 @@ export function HeroSection() {
             {/* E-mail Button */}
             <a
               href="mailto:comercial@kronaexpress.com.br"
-              className="flex items-center gap-3 px-6 py-2 rounded-full bg-[#0E3F8E] hover:bg-blue-800 text-white font-medium text-[17px] transition-all duration-300 shadow-lg hover:-translate-y-1 border border-blue-700/50"
+              className="flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-3 sm:py-2 rounded-full bg-[#0E3F8E] hover:bg-blue-800 text-white font-medium text-[17px] transition-all duration-300 shadow-lg hover:-translate-y-1 border border-blue-700/50"
             >
               <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center shrink-0">
                 <Mail01Icon className="w-5 h-5" />
@@ -84,7 +84,7 @@ export function HeroSection() {
               href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o."
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-3 group text-white hover:text-white/90 transition-all duration-300 hover:-translate-y-1"
+              className="flex items-center justify-center gap-3 w-full sm:w-auto group text-white hover:text-white/90 transition-all duration-300 hover:-translate-y-1"
             >
               <img
                 src={`${basePath}/images/icons/whatsapp.png`}
@@ -137,7 +137,7 @@ export function HeroSection() {
                     />
                   </div>
 
-                  <div className="grid grid-cols-3 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                     <FormField
                       control={form.control}
                       name="valor_nf"

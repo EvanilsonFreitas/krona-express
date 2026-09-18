@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "motion/react";
-import { CheckmarkCircle01Icon, ArrowRight01Icon } from "hugeicons-react";
+import { ArrowRight01Icon, ZapIcon, Shield01Icon, Coins01Icon, PackageIcon, CircleArrowDown01Icon, UserGroupIcon, SecurityCheckIcon, StarIcon, Navigation01Icon, CustomerService01Icon } from "hugeicons-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -9,135 +9,151 @@ const services = [
   {
     id: "lotacao",
     title: "Carga Lotação (FTL)",
-    subtitle: "Exclusividade e máxima velocidade para sua operação",
+    tag: "Máxima Velocidade",
+    tagIcon: <ZapIcon className="w-4 h-4" />,
+    tagColor: "bg-amber-500/90",
     description: "No modelo FTL (Full Truckload), disponibilizamos um veículo dedicado exclusivamente para a sua carga, sem paradas intermediárias ou consolidações. Ideal para envios urgentes, mercadorias de alto valor agregado ou volumes que ocupam toda a capacidade do caminhão.",
     features: [
-      "Veículo lacrado da origem ao destino",
-      "Redução drástica do prazo de entrega",
-      "Menor risco de avarias (sem manuseio em trânsito)",
-      "Flexibilidade de horário de coleta e entrega"
+      { title: "Veículo Lacrado", desc: "Da origem ao destino sem manipulação.", icon: <Shield01Icon className="w-5 h-5" /> },
+      { title: "Prazo Reduzido", desc: "Entrega expressa sem roteirização extra.", icon: <Navigation01Icon className="w-5 h-5" /> },
+      { title: "Menor Risco", desc: "Sem manuseio em trânsito previne avarias.", icon: <SecurityCheckIcon className="w-5 h-5" /> },
+      { title: "Flexibilidade", desc: "Coleta e entrega em horários customizados.", icon: <CustomerService01Icon className="w-5 h-5" /> }
     ],
-    image: "https://images.unsplash.com/photo-1601584115197-04ecc0da31d7?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1200&q=80",
     reverse: false,
   },
   {
     id: "fracionada",
     title: "Carga Fracionada (LTL)",
-    subtitle: "Economia e eficiência para envios menores",
-    description: "Com o LTL (Less Than Truckload), sua carga viaja de forma compartilhada com mercadorias de outros clientes. Utilizamos nossa rede inteligente de cross-docking e rotas otimizadas para garantir que sua mercadoria chegue ao destino com segurança, reduzindo significativamente os custos logísticos.",
+    tag: "Custo-Benefício",
+    tagIcon: <Coins01Icon className="w-4 h-4" />,
+    tagColor: "bg-emerald-500/90",
+    description: "Com o LTL (Less Than Truckload), sua carga viaja de forma compartilhada com mercadorias de outros clientes. Utilizamos nossa rede inteligente de cross-docking e rotas otimizadas para garantir que sua mercadoria chegue ao destino com segurança e custos reduzidos.",
     features: [
-      "Rateio de custos com outras cargas",
-      "Ideal para pequenos e médios volumes",
-      "Rastreabilidade por volume",
-      "Malha de distribuição capilarizada"
+      { title: "Rateio de Custos", desc: "Pague apenas pelo espaço utilizado.", icon: <Coins01Icon className="w-5 h-5" /> },
+      { title: "Volumes Menores", desc: "Ideal para remessas B2B padronizadas.", icon: <PackageIcon className="w-5 h-5" /> },
+      { title: "Rastreabilidade", desc: "Controle de ponta a ponta por volume.", icon: <Shield01Icon className="w-5 h-5" /> },
+      { title: "Malha Capilarizada", desc: "Ampla cobertura em nossa rede de atuação.", icon: <Navigation01Icon className="w-5 h-5" /> }
     ],
-    image: "https://images.unsplash.com/photo-1580674285054-bed31e145f59?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&w=1200&q=80",
     reverse: true,
   },
   {
     id: "reversa",
     title: "Logística Reversa",
-    subtitle: "Gestão inteligente de retornos e devoluções",
+    tag: "Gestão Inteligente",
+    tagIcon: <CircleArrowDown01Icon className="w-4 h-4" />,
+    tagColor: "bg-blue-500/90",
     description: "Transformamos o que seria um problema em uma vantagem competitiva. Gerenciamos coletas de devoluções, troca em garantia, retorno de embalagens e paletes com a mesma agilidade e cuidado do fluxo de ida.",
     features: [
-      "Processo ágil para melhorar a experiência do seu cliente",
-      "Coleta programada de devoluções",
-      "Retorno de paletes e ativos retornáveis",
-      "Integração de informação na logística reversa"
+      { title: "Experiência do Cliente", desc: "Processo ágil para o consumidor final.", icon: <CustomerService01Icon className="w-5 h-5" /> },
+      { title: "Coleta Programada", desc: "Agendamento prévio de devoluções.", icon: <Navigation01Icon className="w-5 h-5" /> },
+      { title: "Retorno de Ativos", desc: "Gestão de paletes e embalagens retornáveis.", icon: <PackageIcon className="w-5 h-5" /> },
+      { title: "Integração", desc: "Fluxo de informação rápido e preciso.", icon: <ZapIcon className="w-5 h-5" /> }
     ],
-    image: "https://images.unsplash.com/photo-1565515268064-07e113645c08?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&w=1200&q=80",
     reverse: false,
   },
   {
     id: "especiais",
-    title: "Operações Especiais e Projetos",
-    subtitle: "Soluções in-house customizadas para grandes operações",
-    description: "Para empresas que necessitam de uma operação logística altamente especializada, oferecemos soluções desenhadas sob medida. Alocamos veículos padronizados, equipe dedicada (in-house) e desenhamos SLAs exclusivos para a sua necessidade.",
+    title: "Operações Especiais",
+    tag: "Projetos In-House",
+    tagIcon: <StarIcon className="w-4 h-4" />,
+    tagColor: "bg-purple-600/90",
+    description: "Para empresas que necessitam de uma operação logística altamente especializada, desenhamos soluções sob medida. Alocamos veículos padronizados, equipe dedicada (in-house) e desenhamos SLAs exclusivos para a sua necessidade.",
     features: [
-      "Frota corporativa padronizada",
-      "Equipe dedicada na planta do cliente",
-      "Desenho de rotas exclusivas",
-      "Gestão de indicadores e performance (KPIs) específicos"
+      { title: "Frota Corporativa", desc: "Veículos padronizados para o seu projeto.", icon: <ZapIcon className="w-5 h-5" /> },
+      { title: "Equipe Dedicada", desc: "Profissionais alocados na planta do cliente.", icon: <UserGroupIcon className="w-5 h-5" /> },
+      { title: "Rotas Exclusivas", desc: "Desenho da malha operacional dedicada.", icon: <Navigation01Icon className="w-5 h-5" /> },
+      { title: "Gestão de KPIs", desc: "Acompanhamento rigoroso de performance.", icon: <Shield01Icon className="w-5 h-5" /> }
     ],
-    image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=800&q=80",
+    image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=1200&q=80",
     reverse: true,
   }
 ];
 
 export function ServicesContentSection() {
   return (
-    <div className="py-16 md:py-24 bg-white">
-      <div className="container mx-auto px-4">
-        
-        <div className="space-y-24">
-          {services.map((service) => (
+    <div className="py-20 md:py-32 bg-slate-50 overflow-hidden">
+      <div className="container mx-auto px-4 max-w-7xl">
+        <div className="space-y-16 md:space-y-24">
+          {services.map((service, idx) => (
             <div 
               key={service.id} 
               id={service.id}
-              className={`flex flex-col gap-12 lg:gap-20 items-center ${service.reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'}`}
+              className="bg-white rounded-[2.5rem] p-6 md:p-10 lg:p-12 shadow-[0_10px_40px_rgba(0,0,0,0.03)] border border-slate-100 scroll-mt-32"
             >
-              
-              <motion.div 
-                className="w-full lg:w-1/2"
-                initial={{ opacity: 0, x: service.reverse ? 50 : -50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut" }}
-              >
-                <div className="relative rounded-3xl overflow-hidden aspect-[4/3] shadow-2xl">
-                  <img 
-                    src={service.image} 
-                    alt={service.title} 
-                    className="w-full h-full object-cover"
-                    onError={(e) => {
-                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=800&q=80';
-                    }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent pointer-events-none" />
-                </div>
-              </motion.div>
-
-              <motion.div 
-                className="w-full lg:w-1/2 space-y-6"
-                initial={{ opacity: 0, x: service.reverse ? -50 : 50 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true, margin: "-100px" }}
-                transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
-              >
-                <div className="space-y-2">
-                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900">{service.title}</h2>
-                  <p className="text-xl font-medium text-primary">{service.subtitle}</p>
-                </div>
+              <div className={`flex flex-col lg:flex-row gap-10 lg:gap-16 items-center ${service.reverse ? 'lg:flex-row-reverse' : ''}`}>
                 
-                <p className="text-slate-600 text-lg leading-relaxed">
-                  {service.description}
-                </p>
-                
-                <div className="pt-4 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {service.features.map((feature, idx) => (
-                    <div key={idx} className="flex items-start gap-3">
-                      <div className="mt-1 w-6 h-6 rounded-full bg-primary/10 text-primary flex items-center justify-center shrink-0">
-                        <CheckmarkCircle01Icon className="w-4 h-4" />
+                {/* Image Side - Smaller, decorative */}
+                <motion.div 
+                  className="w-full lg:w-[45%] relative"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6 }}
+                >
+                  <div className="relative rounded-[2rem] overflow-hidden aspect-video lg:aspect-[4/3] shadow-lg group cursor-pointer">
+                    <img 
+                      src={service.image} 
+                      alt={service.title} 
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-blue-900/5 group-hover:bg-transparent transition-colors duration-500 pointer-events-none"></div>
+                    <div className="absolute top-5 left-5 pointer-events-none">
+                      <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-slate-900 font-bold text-xs uppercase tracking-wider shadow-sm">
+                        <div className={`p-1 rounded-full ${service.tagColor} text-white`}>
+                          {service.tagIcon}
+                        </div>
+                        {service.tag}
                       </div>
-                      <span className="text-slate-700 font-medium text-sm md:text-base leading-snug">{feature}</span>
                     </div>
-                  ))}
-                </div>
+                  </div>
+                </motion.div>
 
-                <div className="pt-6">
-                  <Button asChild size="lg" className="bg-[#111111] hover:bg-primary text-white group rounded-full px-8">
-                    <Link href={`/cotacao?servico=${service.id}`}>
-                      Solicitar Cotação
-                      <ArrowRight01Icon className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  </Button>
-                </div>
-              </motion.div>
+                {/* Content Side */}
+                <motion.div 
+                  className="w-full lg:w-[55%] flex flex-col"
+                  initial={{ opacity: 0, x: service.reverse ? -30 : 30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.6, delay: 0.2 }}
+                >
+                  <h2 className="text-3xl md:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+                    {service.title}
+                  </h2>
+                  <p className="text-slate-600 text-lg leading-relaxed mb-10">
+                    {service.description}
+                  </p>
+                  
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-8 mb-10">
+                    {service.features.map((feature, idx) => (
+                      <div key={idx} className="flex gap-4 group cursor-pointer">
+                        <div className="shrink-0 w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 text-[#114092] flex items-center justify-center group-hover:bg-[#114092] group-hover:text-white transition-colors duration-300 shadow-sm">
+                          {feature.icon}
+                        </div>
+                        <div>
+                          <strong className="text-slate-900 block mb-1 group-hover:text-[#114092] transition-colors">{feature.title}</strong>
+                          <span className="text-slate-500 text-sm leading-relaxed">{feature.desc}</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
 
+                  <div className="pt-2">
+                    <Button asChild size="lg" className="w-full sm:w-auto h-14 bg-[#114092] hover:bg-blue-800 text-white rounded-full px-10 text-base font-bold shadow-md hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 cursor-pointer">
+                      <Link href={`/cotacao?servico=${service.id}`}>
+                        Solicitar Cotação
+                        <ArrowRight01Icon className="ml-2 w-5 h-5" />
+                      </Link>
+                    </Button>
+                  </div>
+                </motion.div>
+
+              </div>
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );
