@@ -34,8 +34,8 @@ export function Header() {
     { name: "Cotação", href: "/cotacao", icon: Calculator01Icon },
   ];
 
-  // O TopBar usa a lógica de transparência
-  const isTransparent = isHome && !scrolled;
+  // O TopBar usa a lógica de transparência em todas as páginas
+  const isTransparent = !scrolled;
 
   const headerBgClass = isTransparent 
     ? "bg-transparent border-transparent" 
