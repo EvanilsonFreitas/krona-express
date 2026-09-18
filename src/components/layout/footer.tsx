@@ -78,9 +78,9 @@ export function Footer() {
               <Image 
                 src="/brand/logo/symbol/logo_Onebi.svg" 
                 alt="Onebi Analytics" 
-                width={100} 
-                height={24} 
-                className="h-5 w-auto opacity-100 hover:scale-105 transition-all drop-shadow-sm" 
+                width={120} 
+                height={32} 
+                className="h-7 w-auto opacity-100 hover:scale-105 transition-all drop-shadow-sm" 
               />
             </Link>
           </div>
