@@ -10,7 +10,7 @@ export function StatsSection() {
       <div className="absolute inset-0 opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] mix-blend-overlay"></div>
       
       <div className="container mx-auto px-4 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 text-center divide-y sm:divide-y-0 divide-x-0 md:divide-x divide-white/20 space-y-8 sm:space-y-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-10 md:gap-12 text-center divide-x-0 md:divide-x divide-white/20 space-y-8 sm:space-y-0">
           
           <FadeIn delay={0.1}>
             <div className="flex flex-col items-center justify-center space-y-2">

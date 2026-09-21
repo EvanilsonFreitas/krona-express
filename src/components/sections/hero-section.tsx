@@ -71,10 +71,10 @@ export function HeroSection() {
             {/* E-mail Button */}
             <a
               href="mailto:comercial@kronaexpress.com.br"
-              className="flex items-center justify-center gap-2.5 sm:gap-3 w-auto px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#0E3F8E] hover:bg-blue-800 text-white font-medium text-[13px] sm:text-[17px] whitespace-nowrap transition-all duration-300 shadow-lg hover:-translate-y-1 border border-blue-700/50"
+              className="flex items-center justify-center gap-2.5 sm:gap-3 w-auto px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#0E3F8E] hover:bg-blue-800 text-white font-medium text-[15px] sm:text-[17px] whitespace-nowrap transition-all duration-300 shadow-lg hover:-translate-y-1 border border-blue-700/50"
             >
-              <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full border border-white/30 flex items-center justify-center shrink-0">
-                <Mail01Icon className="w-3 h-3 sm:w-5 sm:h-5" />
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full border border-white/30 flex items-center justify-center shrink-0">
+                <Mail01Icon className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
               <span className="inline sm:hidden">E-mail</span>
               <span className="hidden sm:inline">Mande um e-mail</span>
@@ -92,7 +92,7 @@ export function HeroSection() {
                 alt="WhatsApp"
                 className="w-[32px] h-[32px] sm:w-[50px] sm:h-[50px] object-contain drop-shadow-lg group-hover:scale-105 transition-transform shrink-0"
               />
-              <span className="font-medium text-[12px] sm:text-[17px]">
+              <span className="font-medium text-[15px] sm:text-[17px]">
                 <span className="inline sm:hidden">WhatsApp</span>
                 <span className="hidden sm:inline">Chame no WhatsApp</span>
               </span>

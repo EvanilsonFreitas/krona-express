@@ -100,15 +100,47 @@ export function Header() {
       {/* Main Header */}
       <div className="container mx-auto px-4 h-[88px] flex items-center justify-end xl:justify-between relative">
         
-        {/* Logo */}
-        <div className="flex items-center absolute left-1/2 -translate-x-1/2 xl:relative xl:left-0 xl:translate-x-0">
+        {/* Logo Desktop (Sempre alinhado à esquerda no XL) */}
+        <div className="hidden xl:flex items-center relative">
           <Link href="/" className="relative z-10 transition-transform hover:scale-105 cursor-pointer">
             <Image 
               src={`${basePath}/brand/logo/${scrolled ? 'primary/Logo_Krona_Original.png' : 'monochrome/Logo_Krona_Branco.png'}`} 
               alt="Krona Express" 
               width={180} 
               height={50} 
-              className="h-14 xl:h-11 w-auto object-contain transition-all duration-300 ease-in-out" 
+              className="h-11 w-auto object-contain transition-all duration-300 ease-in-out" 
+              priority
+            />
+          </Link>
+        </div>
+
+        {/* Logo Mobile (Centro quando top=0) */}
+        <div className={`xl:hidden flex items-center absolute left-1/2 -translate-x-1/2 transition-opacity duration-300 ease-in-out ${
+          scrolled ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
+        }`}>
+          <Link href="/" className="relative z-10 transition-transform hover:scale-105 cursor-pointer">
+            <Image 
+              src={`${basePath}/brand/logo/monochrome/Logo_Krona_Branco.png`} 
+              alt="Krona Express" 
+              width={180} 
+              height={50} 
+              className="h-14 w-auto object-contain" 
+              priority
+            />
+          </Link>
+        </div>
+
+        {/* Logo Mobile (Esquerda quando scrollado) */}
+        <div className={`xl:hidden flex items-center absolute left-4 sm:left-6 lg:left-8 transition-opacity duration-300 ease-in-out ${
+          scrolled ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}>
+          <Link href="/" className="relative z-10 transition-transform hover:scale-105 cursor-pointer">
+            <Image 
+              src={`${basePath}/brand/logo/primary/Logo_Krona_Original.png`} 
+              alt="Krona Express" 
+              width={180} 
+              height={50} 
+              className="h-14 w-auto object-contain" 
               priority
             />
           </Link>
@@ -178,10 +210,10 @@ export function Header() {
         <div className="xl:hidden flex items-center pointer-events-auto">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" className={`cursor-pointer transition-colors w-16 h-16 p-2 flex items-center justify-center ${
+              <Button variant="ghost" className={`cursor-pointer transition-colors w-12 h-12 p-2 flex items-center justify-center ${
                 scrolled ? 'text-slate-900 hover:bg-slate-100' : 'text-white hover:bg-white/20'
               }`}>
-                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg className="size-8" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <line x1="3" y1="12" x2="21" y2="12"></line>
                   <line x1="3" y1="6" x2="21" y2="6"></line>
                   <line x1="3" y1="18" x2="21" y2="18"></line>
@@ -217,7 +249,7 @@ export function Header() {
                       <Link 
                         key={item.name} 
                         href={item.href} 
-                        className={`group flex items-center text-3xl md:text-4xl font-normal tracking-tight transition-all duration-300 ${
+                        className={`group flex items-center text-2xl md:text-3xl font-normal tracking-tight transition-all duration-300 ${
                           isActive ? "text-white translate-x-2" : "text-white/50 hover:text-white hover:translate-x-2"
                         }`}
                       >
