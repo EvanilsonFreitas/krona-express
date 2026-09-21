@@ -178,10 +178,14 @@ export function Header() {
         <div className="xl:hidden flex items-center pointer-events-auto">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className={`cursor-pointer transition-colors ${
+              <Button variant="ghost" className={`cursor-pointer transition-colors w-16 h-16 p-2 flex items-center justify-center ${
                 scrolled ? 'text-slate-900 hover:bg-slate-100' : 'text-white hover:bg-white/20'
               }`}>
-                <Menu01Icon className="w-6 h-6" />
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="3" y1="12" x2="21" y2="12"></line>
+                  <line x1="3" y1="6" x2="21" y2="6"></line>
+                  <line x1="3" y1="18" x2="21" y2="18"></line>
+                </svg>
                 <span className="sr-only">Abrir menu</span>
               </Button>
             </SheetTrigger>
@@ -213,7 +217,7 @@ export function Header() {
                       <Link 
                         key={item.name} 
                         href={item.href} 
-                        className={`group flex items-center text-3xl md:text-4xl font-extrabold tracking-tight transition-all duration-300 ${
+                        className={`group flex items-center text-3xl md:text-4xl font-normal tracking-tight transition-all duration-300 ${
                           isActive ? "text-white translate-x-2" : "text-white/50 hover:text-white hover:translate-x-2"
                         }`}
                       >
