@@ -111,17 +111,19 @@ export function QuoteTrackerSection() {
             <TabsList className="grid w-full grid-cols-2 mb-8 !h-[60px] bg-slate-100 dark:bg-slate-800/50 p-1.5 rounded-2xl">
               <TabsTrigger
                 value="cotacao"
-                className="flex items-center justify-center gap-2 text-base font-bold h-full text-slate-500 cursor-pointer data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-[#114092] dark:data-[state=active]:text-white transition-all rounded-xl data-[state=active]:shadow-sm"
+                className="flex items-center justify-center gap-1.5 sm:gap-2 text-[13px] sm:text-base font-bold h-full text-slate-500 cursor-pointer data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-[#114092] dark:data-[state=active]:text-white transition-all rounded-xl data-[state=active]:shadow-sm"
               >
-                <DeliveryTruck01Icon className="w-5 h-5" />
-                Simular Cotação de Frete
+                <DeliveryTruck01Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                <span className="hidden sm:inline">Simular Cotação de Frete</span>
+                <span className="inline sm:hidden">Cotação</span>
               </TabsTrigger>
               <TabsTrigger
                 value="rastreamento"
-                className="flex items-center justify-center gap-2 text-base font-bold h-full text-slate-500 cursor-pointer data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-[#114092] dark:data-[state=active]:text-white transition-all rounded-xl data-[state=active]:shadow-sm"
+                className="flex items-center justify-center gap-1.5 sm:gap-2 text-[13px] sm:text-base font-bold h-full text-slate-500 cursor-pointer data-[state=active]:bg-white dark:data-[state=active]:bg-slate-900 data-[state=active]:text-[#114092] dark:data-[state=active]:text-white transition-all rounded-xl data-[state=active]:shadow-sm"
               >
-                <Search01Icon className="w-5 h-5" />
-                Rastrear Carga / Pedido
+                <Search01Icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" />
+                <span className="hidden sm:inline">Rastrear Carga / Pedido</span>
+                <span className="inline sm:hidden">Rastrear</span>
               </TabsTrigger>
             </TabsList>
 

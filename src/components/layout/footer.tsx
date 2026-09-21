@@ -1,19 +1,20 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Call02Icon, Mail01Icon, Location02Icon } from "hugeicons-react";
+import { Call02Icon, Mail01Icon, Location01Icon } from "hugeicons-react";
 
 export function Footer() {
+  const isProd = process.env.NODE_ENV === 'production';
+  const basePath = isProd ? '/krona-express' : '';
+
   return (
     <footer className="bg-white text-slate-900 border-t border-slate-200">
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Column 1 */}
           <div className="space-y-4">
-            <Image 
-              src="/brand/logo/primary/Logo_Krona_Original.png" 
+            <img 
+              src={`${basePath}/brand/logo/primary/Logo_Krona_Original.png`} 
               alt="Krona Express" 
-              width={180} 
-              height={50} 
               className="h-10 w-auto object-contain" 
             />
             <p className="text-sm text-slate-600 leading-relaxed">
@@ -48,7 +49,7 @@ export function Footer() {
             <h4 className="font-bold text-lg">Atendimento</h4>
             <ul className="space-y-3 text-sm text-slate-600">
               <li className="flex items-start gap-2">
-                <Location02Icon className="w-5 h-5 shrink-0 text-[#114092]" />
+                <Location01Icon className="w-5 h-5 shrink-0 text-[#114092]" />
                 <span>Rua da Logística, 1000<br />São Paulo - SP</span>
               </li>
               <li className="flex items-center gap-2">
@@ -75,11 +76,9 @@ export function Footer() {
           <div className="flex items-center gap-3">
             <span>Desenvolvido por</span>
             <Link href="#" target="_blank" rel="noopener noreferrer" className="block cursor-pointer">
-              <Image 
-                src="/brand/logo/symbol/logo_Onebi.svg" 
+              <img 
+                src={`${basePath}/brand/logo/symbol/logo_Onebi.svg`} 
                 alt="Onebi Analytics" 
-                width={120} 
-                height={32} 
                 className="h-7 w-auto opacity-100 hover:scale-105 transition-all drop-shadow-sm" 
               />
             </Link>

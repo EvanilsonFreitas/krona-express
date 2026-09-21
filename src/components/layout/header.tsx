@@ -6,7 +6,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Search01Icon, Call02Icon, Mail01Icon, Menu01Icon, Package01Icon, Home01Icon, Building01Icon, LiftTruckIcon, UserAdd01Icon, Calculator01Icon } from "hugeicons-react";
 import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { motion, LayoutGroup } from "motion/react";
 
 export function Header() {
@@ -81,12 +81,12 @@ export function Header() {
       <div className={`w-full text-sm font-medium transition-all duration-300 overflow-hidden ${
         scrolled ? 'max-h-0 opacity-0 py-0' : 'max-h-20 py-2.5 opacity-100'
       } ${topBarClass}`}>
-        <div className="container mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <div className="container mx-auto px-4 flex flex-row justify-between items-center gap-2">
           <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2 text-white/80 hover:text-white transition-colors"><Call02Icon className="w-4 h-4" /> (11) 4000-0000</span>
+            <span className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-xs sm:text-sm"><Call02Icon className="w-4 h-4 hidden sm:block" /> (11) 4000-0000</span>
             <span className="flex items-center gap-2 hidden sm:flex text-white/80 hover:text-white transition-colors"><Mail01Icon className="w-4 h-4" /> comercial@kronaexpress.com.br</span>
           </div>
-          <Link href="/#rastreamento" className="flex items-center gap-2 text-white hover:text-blue-300 transition-colors">
+          <Link href="/#rastreamento" className="flex items-center gap-1 sm:gap-2 text-white hover:text-blue-300 transition-colors text-xs sm:text-sm">
             <Package01Icon className="w-4 h-4" /> Rastrear carga
           </Link>
         </div>
@@ -98,17 +98,17 @@ export function Header() {
       }`} />
 
       {/* Main Header */}
-      <div className="container mx-auto px-4 h-[88px] flex items-center justify-between">
+      <div className="container mx-auto px-4 h-[88px] flex items-center justify-end xl:justify-between relative">
         
         {/* Logo */}
-        <div className="flex items-center">
+        <div className="flex items-center absolute left-1/2 -translate-x-1/2 xl:relative xl:left-0 xl:translate-x-0">
           <Link href="/" className="relative z-10 transition-transform hover:scale-105 cursor-pointer">
             <Image 
               src={`${basePath}/brand/logo/${scrolled ? 'primary/Logo_Krona_Original.png' : 'monochrome/Logo_Krona_Branco.png'}`} 
               alt="Krona Express" 
               width={180} 
               height={50} 
-              className="h-11 w-auto object-contain transition-all duration-300 ease-in-out" 
+              className="h-14 xl:h-11 w-auto object-contain transition-all duration-300 ease-in-out" 
               priority
             />
           </Link>
@@ -185,21 +185,27 @@ export function Header() {
                 <span className="sr-only">Abrir menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="bg-white border-l-slate-100 text-slate-900 w-[90vw] max-w-[420px] flex flex-col h-full p-0">
+            <SheetContent side="right" showCloseButton={false} className="bg-[#070d1f]/95 backdrop-blur-2xl border-l-white/10 text-white w-[90vw] max-w-[420px] flex flex-col h-full p-0">
               {/* Header do Menu */}
               <div className="p-8 pb-4 flex items-center justify-between">
-                <SheetTitle className="sr-only text-slate-900">Menu de Navegação</SheetTitle>
                 <Image 
-                  src={`${basePath}/brand/logo/primary/Logo_Krona_Original.png`} 
+                  src={`${basePath}/brand/logo/monochrome/Logo_Krona_Branco.png`} 
                   alt="Krona Express" 
                   width={140} 
                   height={40} 
                   className="h-9 w-auto object-contain"
                 />
+                <SheetClose asChild>
+                  <Button variant="ghost" size="icon" className="rounded-full bg-white/5 hover:bg-white/20 text-white/70 hover:text-white border border-white/10 transition-all">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
+                    <span className="sr-only">Close</span>
+                  </Button>
+                </SheetClose>
+                <SheetTitle className="sr-only text-white">Menu de Navegação</SheetTitle>
               </div>
 
               {/* Lista de Navegação */}
-              <div className="flex-1 overflow-y-auto px-8 py-8 flex flex-col justify-center">
+              <div className="flex-1 overflow-y-auto px-8 py-8 flex flex-col justify-start mt-8">
                 <div className="flex flex-col gap-6">
                   {navItems.map((item) => {
                     const isActive = item.href === "/" ? isHome : pathname.startsWith(item.href) || pathname.includes(item.href.replace('/#', ''));
@@ -208,11 +214,11 @@ export function Header() {
                         key={item.name} 
                         href={item.href} 
                         className={`group flex items-center text-3xl md:text-4xl font-extrabold tracking-tight transition-all duration-300 ${
-                          isActive ? "text-[#114092] translate-x-2" : "text-slate-400 hover:text-slate-900 hover:translate-x-2"
+                          isActive ? "text-white translate-x-2" : "text-white/50 hover:text-white hover:translate-x-2"
                         }`}
                       >
                         {item.name}
-                        {isActive && <div className="ml-4 w-2 h-2 bg-[#114092] rounded-full" />}
+                        {isActive && <div className="ml-4 w-2 h-2 bg-blue-400 rounded-full shadow-[0_0_10px_rgba(96,165,250,0.8)]" />}
                       </Link>
                     );
                   })}
@@ -220,21 +226,23 @@ export function Header() {
               </div>
 
               {/* Rodapé Fixo */}
-              <div className="px-8 pb-8 pt-6 border-t border-slate-100 bg-slate-50/50">
-                <div className="flex justify-between items-center mb-6 text-slate-500 text-sm font-medium">
-                  <a href="tel:1140000000" className="hover:text-slate-900 transition-colors">
-                    (11) 4000-0000
+              <div className="px-4 sm:px-8 pb-8 pt-6 border-t border-white/10 bg-white/5">
+                <div className="flex flex-col gap-3 justify-center items-center mb-6 text-white/60 text-[13px] sm:text-sm font-medium">
+                  <a href="tel:1140000000" className="flex items-center gap-2 hover:text-white transition-colors">
+                    <Call02Icon className="w-4 h-4 shrink-0" /> (11) 4000-0000
                   </a>
-                  <a href="mailto:comercial@kronaexpress.com.br" className="hover:text-slate-900 transition-colors">
-                    comercial@kronaexpress.com.br
+                  <a href="mailto:comercial@kronaexpress.com.br" className="flex items-center gap-2 hover:text-white transition-colors whitespace-nowrap">
+                    <Mail01Icon className="w-4 h-4 shrink-0" /> comercial@kronaexpress.com.br
                   </a>
                 </div>
                 
-                <Button asChild className="w-full h-14 bg-[#25D366] hover:bg-[#1fae53] text-white font-bold text-lg rounded-xl shadow-none hover:shadow-lg hover:shadow-[#25D366]/20 transition-all">
-                  <Link href="https://wa.me/5511999999999" target="_blank" rel="noopener noreferrer">
-                    Chamar no WhatsApp
-                  </Link>
-                </Button>
+                <SheetClose asChild>
+                  <Button asChild className="w-full h-14 bg-[#0E3F8E] hover:bg-blue-700 text-white font-bold text-lg rounded-xl shadow-[0_8px_20px_rgba(14,63,142,0.3)] hover:shadow-[0_10px_25px_rgba(14,63,142,0.5)] transition-all">
+                    <Link href="/cotacao">
+                      Solicitar Cotação
+                    </Link>
+                  </Button>
+                </SheetClose>
               </div>
             </SheetContent>
           </Sheet>

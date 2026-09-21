@@ -18,8 +18,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={cn("font-sans", geist.variable)}>
-      <body>
+    <html lang="pt-BR" className={cn("font-sans", geist.variable)} suppressHydrationWarning>
+      <body suppressHydrationWarning>
         {children}
         <VLibras />
         <FloatingWhatsApp />

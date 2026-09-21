@@ -38,13 +38,13 @@ export function HeroSection() {
   const inputClasses = "w-full px-5 py-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/50 dark:bg-slate-900 text-sm font-medium text-slate-900 placeholder-slate-400 focus:outline-none focus:border-[#114092] focus:ring-4 focus:ring-[#114092]/10 transition-all aria-invalid:border-red-500 aria-invalid:ring-red-500/20 aria-invalid:ring-4 dark:aria-invalid:border-red-500/80";
 
   return (
-    <section className="relative min-h-[100vh] lg:min-h-[110vh] w-full max-w-[1920px] mx-auto flex flex-col justify-start pt-32 lg:pt-40 overflow-hidden bg-[#070d1f]">
+    <section className="relative sm:min-h-[100vh] lg:min-h-[110vh] w-full max-w-[1920px] mx-auto flex flex-col justify-start pt-32 sm:pt-40 lg:pt-48 overflow-hidden bg-[#070d1f]">
       {/* Container da Imagem que assume a altura exata da imagem */}
       <div className="absolute top-0 left-0 w-full z-0">
         <img
           src={`${basePath}/images/pages/home/Fundo_Header.png`}
           alt="Background Hero"
-          className="w-full h-auto object-top"
+          className="w-full h-[420px] sm:h-auto object-cover object-center sm:object-top"
         />
         {/* Degradê posicionado perfeitamente em cima do bottom da imagem */}
         <div className="absolute bottom-0 left-0 w-full h-[25%] min-h-[150px] bg-gradient-to-t from-[#070d1f] to-transparent z-10 pointer-events-none" />
@@ -54,7 +54,7 @@ export function HeroSection() {
       <div className="absolute inset-0 bg-gradient-to-r from-[#030b1c]/90 via-[#030b1c]/40 to-transparent z-0 w-full h-full pointer-events-none" />
 
       {/* Grid de Conteúdo */}
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-24 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full pb-0 sm:pb-24 grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 items-center">
 
         {/* Coluna da Esquerda (Textos e CTA) */}
         <div className="lg:col-span-7 flex flex-col justify-center text-left max-w-2xl">
@@ -67,16 +67,17 @@ export function HeroSection() {
           </p>
 
           {/* Action Buttons (Email e WhatsApp) */}
-          <div className="flex flex-col sm:flex-row items-center gap-6 pt-10 animate-fade-in-up animation-delay-200">
+          <div className="flex flex-row flex-nowrap w-full items-center justify-center lg:justify-start gap-8 sm:gap-10 pt-8 sm:pt-10 animate-fade-in-up animation-delay-200">
             {/* E-mail Button */}
             <a
               href="mailto:comercial@kronaexpress.com.br"
-              className="flex items-center justify-center gap-3 w-full sm:w-auto px-6 py-3 sm:py-2 rounded-full bg-[#0E3F8E] hover:bg-blue-800 text-white font-medium text-[17px] transition-all duration-300 shadow-lg hover:-translate-y-1 border border-blue-700/50"
+              className="flex items-center justify-center gap-2.5 sm:gap-3 w-auto px-6 sm:px-8 py-2.5 sm:py-3 rounded-full bg-[#0E3F8E] hover:bg-blue-800 text-white font-medium text-[13px] sm:text-[17px] whitespace-nowrap transition-all duration-300 shadow-lg hover:-translate-y-1 border border-blue-700/50"
             >
-              <div className="w-10 h-10 rounded-full border border-white/30 flex items-center justify-center shrink-0">
-                <Mail01Icon className="w-5 h-5" />
+              <div className="w-6 h-6 sm:w-10 sm:h-10 rounded-full border border-white/30 flex items-center justify-center shrink-0">
+                <Mail01Icon className="w-3 h-3 sm:w-5 sm:h-5" />
               </div>
-              Mande um e-mail
+              <span className="inline sm:hidden">E-mail</span>
+              <span className="hidden sm:inline">Mande um e-mail</span>
             </a>
 
             {/* WhatsApp Button */}
@@ -84,21 +85,37 @@ export function HeroSection() {
               href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20uma%20cota%C3%A7%C3%A3o."
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 w-full sm:w-auto group text-white hover:text-white/90 transition-all duration-300 hover:-translate-y-1"
+              className="flex items-center justify-center gap-1.5 sm:gap-3 w-auto group text-white hover:text-white/90 whitespace-nowrap transition-all duration-300 hover:-translate-y-1"
             >
               <img
                 src={`${basePath}/images/icons/whatsapp.png`}
                 alt="WhatsApp"
-                className="w-[50px] h-[50px] object-contain drop-shadow-lg group-hover:scale-105 transition-transform shrink-0"
+                className="w-[32px] h-[32px] sm:w-[50px] sm:h-[50px] object-contain drop-shadow-lg group-hover:scale-105 transition-transform shrink-0"
               />
-              <span className="font-medium text-[17px]">Chame no WhatsApp</span>
+              <span className="font-medium text-[12px] sm:text-[17px]">
+                <span className="inline sm:hidden">WhatsApp</span>
+                <span className="hidden sm:inline">Chame no WhatsApp</span>
+              </span>
             </a>
+          </div>
+
+          {/* Indicador de Scroll Mobile (Acima do formulário) */}
+          <div className="lg:hidden flex justify-center w-full mt-10 mb-2 z-20">
+            <div
+              className="flex flex-col items-center gap-2 cursor-pointer opacity-70 hover:opacity-100 transition-opacity animate-bounce"
+              style={{ animationDuration: '3s' }}
+              onClick={() => window.scrollTo({ top: window.innerHeight * 0.9, behavior: 'smooth' })}
+            >
+              <div className="p-2.5 rounded-full bg-white/5 backdrop-blur-md border border-white/20 shadow-lg">
+                <Mouse01Icon className="w-5 h-5 text-white drop-shadow-md" />
+              </div>
+            </div>
           </div>
         </div>
 
         {/* Coluna da Direita (Card Flutuante de Cotação) */}
         <Parallax speed={0.15} className="lg:col-span-5 w-full relative z-20 lg:translate-y-16">
-          <div className="bg-white/95 dark:bg-slate-900/95 rounded-[32px] shadow-[0_20px_80px_rgba(0,0,0,0.15)] p-6 sm:p-10 border border-white/80 dark:border-slate-700/50 backdrop-blur-2xl w-full max-w-lg mx-auto lg:ml-auto">
+          <div className="bg-white/95 dark:bg-slate-900/95 rounded-t-[32px] sm:rounded-[32px] shadow-[0_20px_80px_rgba(0,0,0,0.15)] p-6 sm:p-10 border-t sm:border border-white/80 dark:border-slate-700/50 backdrop-blur-2xl w-[calc(100%+2rem)] -ml-4 sm:w-full sm:ml-auto max-w-[100vw] sm:max-w-lg mx-auto lg:ml-auto">
 
             <div className="mb-8 text-center">
               <Badge variant="outline" className="mb-3 bg-blue-50 text-[#114092] border-blue-200 px-3 py-1 text-xs tracking-wider">RESPOSTA EM 15 MIN</Badge>
@@ -274,9 +291,9 @@ export function HeroSection() {
         </Parallax>
       </div>
 
-      {/* Indicador de Scroll (Mouse) */}
+      {/* Indicador de Scroll (Mouse) Desktop */}
       <div
-        className="absolute bottom-24 lg:bottom-32 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 z-20 cursor-pointer opacity-70 hover:opacity-100 transition-opacity animate-bounce"
+        className="hidden lg:flex absolute bottom-24 lg:bottom-32 left-1/2 -translate-x-1/2 flex-col items-center gap-2 z-20 cursor-pointer opacity-70 hover:opacity-100 transition-opacity animate-bounce"
         style={{ animationDuration: '3s' }}
         onClick={() => window.scrollTo({ top: window.innerHeight * 0.9, behavior: 'smooth' })}
         title="Rolar para baixo"
