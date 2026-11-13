@@ -1,288 +1,112 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { Search01Icon, Call02Icon, Mail01Icon, Menu01Icon, Package01Icon, Home01Icon, Building01Icon, LiftTruckIcon, UserAdd01Icon, Calculator01Icon } from "hugeicons-react";
-import { Button } from "@/components/ui/button";
-import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetClose } from "@/components/ui/sheet";
-import { motion, LayoutGroup } from "motion/react";
+import { motion } from "motion/react";
+import { nav, site } from "@/config/site";
+import { MobileMenu } from "@/components/layout/mobile-menu";
+import { asset } from "@/lib/asset";
+import { cn } from "@/lib/utils";
+import { ActionLink } from "@/components/krona/ui";
+import { routeEase, usePrefersReducedMotion } from "@/components/krona/motion";
 
-export function Header() {
-  const [scrolled, setScrolled] = useState(false);
-  const [pillStyle, setPillStyle] = useState({ left: 0, width: 0, opacity: 0 });
-  const navRef = useRef<HTMLElement>(null);
+type Tone = "dark" | "light";
+
+function isActive(pathname: string, href: string) {
+  const clean = pathname.replace(/\/$/, "") || "/";
+  return href === "/" ? clean === "/" : clean.startsWith(href);
+}
+
+/**
+ * Header: presente quando necessário, discreto quando não.
+ * - Sobre o hero: transparente, leve.
+ * - Em scroll: superfície sólida e compacta; recolhe ao descer e retorna ao subir.
+ * O indicador ativo evolui a antiga "pílula" para um traço sob o item atual.
+ */
+export function Header({ tone = "dark" }: { tone?: Tone }) {
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  const isProd = process.env.NODE_ENV === 'production';
-  const basePath = isProd ? '/krona-express' : '';
+  const [scrolled, setScrolled] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const lastY = useRef(0);
+  const reduce = usePrefersReducedMotion();
 
   useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 20;
-      if (isScrolled !== scrolled) {
-        setScrolled(isScrolled);
-      }
+    const onScroll = () => {
+      const y = window.scrollY;
+      setScrolled(y > 24);
+      setHidden(y > 480 && y > lastY.current + 4);
+      if (y < lastY.current - 4 || y < 480) setHidden(false);
+      lastY.current = y;
     };
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, [scrolled]);
-
-  // Efeito para calcular a posição e tamanho exato do botão ativo no menu
-  useEffect(() => {
-    if (!navRef.current) return;
-    
-    // Procura o link que está ativo no momento
-    const activeLink = navRef.current.querySelector<HTMLElement>('[data-active="true"]');
-    
-    if (activeLink) {
-      // Medimos a posição relativa ao container <nav>
-      const parentRect = navRef.current.getBoundingClientRect();
-      const linkRect = activeLink.getBoundingClientRect();
-      
-      setPillStyle({
-        left: linkRect.left - parentRect.left,
-        width: linkRect.width,
-        opacity: 1
-      });
-    } else {
-      setPillStyle(prev => ({ ...prev, opacity: 0 }));
-    }
-  }, [pathname, scrolled]); // Recalcula quando a rota ou o scroll muda (pois o padding do header pode mudar)
-
-  const navItems = [
-    { name: "Página inicial", href: "/", icon: Home01Icon },
-    { name: "Sobre Nós", href: "/sobre", icon: Building01Icon },
-    { name: "Serviços", href: "/servicos", icon: LiftTruckIcon },
-    { name: "Contato", href: "/contato", icon: UserAdd01Icon },
-    { name: "Cotação", href: "/cotacao", icon: Calculator01Icon },
-  ];
-
-  // O TopBar usa a lógica de transparência em todas as páginas
-  const isTransparent = !scrolled;
-
-  const headerBgClass = isTransparent 
-    ? "bg-transparent border-transparent" 
-    : "bg-white/95 backdrop-blur-md shadow-md border-b border-slate-200/50"; 
-
-  const topBarClass = isTransparent
-    ? "bg-transparent border-transparent"
-    : "bg-[#040814] border-b border-white/5";
+  const solid = scrolled;
+  const onDark = tone === "dark" && !solid;
 
   return (
-    <header className={`w-full fixed top-0 z-50 transition duration-300 ease-in-out ${headerBgClass}`}>
-      {/* TopBar */}
-      <div className={`w-full text-sm font-medium transition-all duration-300 overflow-hidden ${
-        scrolled ? 'max-h-0 opacity-0 py-0' : 'max-h-20 py-2.5 opacity-100'
-      } ${topBarClass}`}>
-        <div className="container mx-auto px-4 flex flex-row justify-between items-center gap-2">
-          <div className="flex items-center gap-6">
-            <span className="flex items-center gap-2 text-white/80 hover:text-white transition-colors text-xs sm:text-sm"><Call02Icon className="w-4 h-4 hidden sm:block" /> (11) 4000-0000</span>
-            <span className="flex items-center gap-2 hidden sm:flex text-white/80 hover:text-white transition-colors"><Mail01Icon className="w-4 h-4" /> comercial@kronaexpress.com.br</span>
-          </div>
-          <Link href="/#rastreamento" className="flex items-center gap-1 sm:gap-2 text-white hover:text-blue-300 transition-colors text-xs sm:text-sm">
-            <Package01Icon className="w-4 h-4" /> Rastrear carga
-          </Link>
-        </div>
-      </div>
-
-      {/* Linha Divisória em Degradê */}
-      <div className={`w-full h-[1px] transition-all duration-300 bg-gradient-to-r from-transparent via-white/30 to-transparent ${
-        scrolled ? 'opacity-0' : 'opacity-100'
-      }`} />
-
-      {/* Main Header */}
-      <div className="container mx-auto px-4 h-[88px] flex items-center justify-end xl:justify-between relative">
-        
-        {/* Logo Desktop (Sempre alinhado à esquerda no XL) */}
-        <div className="hidden xl:flex items-center relative">
-          <Link href="/" className="relative z-10 transition-transform hover:scale-105 cursor-pointer">
-            <Image 
-              src={`${basePath}/brand/logo/${scrolled ? 'primary/Logo_Krona_Original.png' : 'monochrome/Logo_Krona_Branco.png'}`} 
-              alt="Krona Express" 
-              width={180} 
-              height={50} 
-              className="h-11 w-auto object-contain transition-all duration-300 ease-in-out" 
-              priority
-            />
-          </Link>
-        </div>
-
-        {/* Logo Mobile (Centro quando top=0) */}
-        <div className={`xl:hidden flex items-center absolute left-1/2 -translate-x-1/2 transition-opacity duration-300 ease-in-out ${
-          scrolled ? "opacity-0 pointer-events-none" : "opacity-100 pointer-events-auto"
-        }`}>
-          <Link href="/" className="relative z-10 transition-transform hover:scale-105 cursor-pointer">
-            <Image 
-              src={`${basePath}/brand/logo/monochrome/Logo_Krona_Branco.png`} 
-              alt="Krona Express" 
-              width={180} 
-              height={50} 
-              className="h-14 w-auto object-contain" 
-              priority
-            />
-          </Link>
-        </div>
-
-        {/* Logo Mobile (Esquerda quando scrollado) */}
-        <div className={`xl:hidden flex items-center absolute left-4 sm:left-6 lg:left-8 transition-opacity duration-300 ease-in-out ${
-          scrolled ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
-        }`}>
-          <Link href="/" className="relative z-10 transition-transform hover:scale-105 cursor-pointer">
-            <Image 
-              src={`${basePath}/brand/logo/primary/Logo_Krona_Original.png`} 
-              alt="Krona Express" 
-              width={180} 
-              height={50} 
-              className="h-14 w-auto object-contain" 
-              priority
-            />
-          </Link>
-        </div>
-
-        {/* Desktop Nav - Glassmorphism Premium Elevado */}
-        <nav 
-          ref={navRef}
-          className={`hidden xl:flex relative items-center gap-2 border backdrop-blur-md rounded-full px-4 py-2 transition-all duration-300 shadow-[0_8px_32px_0_rgba(0,0,0,0.15)] ${
-            scrolled ? 'bg-slate-100/50 border-slate-200/60' : 'bg-white/10 border-white/20'
-          }`}
-        >
-          {/* Pílula Animada de Fundo (Exclusivamente Horizontal) */}
-          <motion.div
-            className="absolute top-2 bottom-2 bg-[#114092] shadow-md rounded-full"
-            initial={false}
-            animate={{ 
-              left: pillStyle.left, 
-              width: pillStyle.width, 
-              opacity: pillStyle.opacity 
-            }}
-            transition={{ type: "spring", stiffness: 350, damping: 30 }}
+    <header
+      className={cn(
+        "fixed inset-x-0 top-0 z-[var(--z-header)] transition-[transform,background-color,border-color,color] duration-500 ease-[var(--ease-route)]",
+        hidden ? "-translate-y-full" : "translate-y-0",
+        solid ? "border-b border-line bg-paper/90 text-ink backdrop-blur-md" : "border-b border-transparent",
+        onDark ? "text-white" : "text-ink",
+      )}
+    >
+      <div className="k-container flex h-[var(--header-h)] items-center justify-between gap-6">
+        <Link href="/" aria-label="Krona Express, página inicial" className="relative block h-11 w-[66px] shrink-0">
+          {/* eslint-disable-next-line @next/next/no-img-element -- logotipo estático; duas versões para fundos claro/escuro */}
+          <img
+            src={asset(onDark ? "/brand/logo/monochrome/Logo_Krona_Branco.png" : "/brand/logo/primary/Logo_Krona_Original.png")}
+            alt="Krona Express"
+            width={66}
+            height={44}
+            className="h-11 w-auto object-contain"
           />
+        </Link>
 
-          {navItems.map((item) => {
-            const isActive = item.href === "/" ? isHome : pathname.startsWith(item.href) || pathname.includes(item.href.replace('/#', ''));
-            const Icon = item.icon;
-            
-            return (
-              <Link 
-                key={item.name} 
-                href={item.href} 
-                data-active={isActive}
-                className={`relative z-10 group flex items-center justify-center px-5 py-2 cursor-pointer rounded-full transition-colors duration-300 ${
-                  isActive ? '' : (scrolled ? 'hover:bg-slate-100' : 'hover:bg-white/10')
-                }`}
-              >
-                <div className={`flex items-center gap-2 transition-colors duration-300 ${
-                  isActive 
-                    ? 'text-white' 
-                    : (scrolled ? 'text-slate-600 group-hover:text-[#114092]' : 'text-white/90 group-hover:text-white')
-                }`}>
-                  <Icon className="w-5 h-5 stroke-[1.5]" />
-                  <span className="text-[16px] font-medium tracking-wide">{item.name}</span>
-                </div>
-              </Link>
-            );
-          })}
+        <nav aria-label="Principal" className="hidden lg:block">
+          <ul className="flex items-center gap-1">
+            {nav.map((item) => {
+              const active = isActive(pathname, item.href);
+              return (
+                <li key={item.href} className="relative">
+                  <Link
+                    href={item.href}
+                    aria-current={active ? "page" : undefined}
+                    className={cn(
+                      "t-nav relative block px-4 py-3 transition-opacity duration-300",
+                      active ? "opacity-100" : "opacity-70 hover:opacity-100",
+                    )}
+                  >
+                    {item.label}
+                    {active && (
+                      <motion.span
+                        layoutId="nav-route"
+                        transition={reduce ? { duration: 0 } : { duration: 0.6, ease: routeEase }}
+                        className="absolute inset-x-4 bottom-1.5 h-px bg-current"
+                      />
+                    )}
+                  </Link>
+                </li>
+              );
+            })}
+          </ul>
         </nav>
 
-        {/* Rastrear Carga (Aparece no scroll) para balancear o logo */}
-        <div className="hidden xl:flex min-w-[200px] justify-end">
-          <Link 
-            href="/#rastreamento" 
-            className={`flex items-center gap-2 border backdrop-blur-md rounded-full px-6 py-2.5 font-bold transition-all duration-300 shadow-lg cursor-pointer whitespace-nowrap ${
-              scrolled 
-                ? 'opacity-100 translate-y-0 pointer-events-auto bg-[#114092] hover:bg-blue-800 border-[#114092] text-white' 
-                : 'opacity-0 -translate-y-2 pointer-events-none bg-white/10 border-white/20 text-white hover:bg-white/20'
-            }`}
-          >
-            <Package01Icon className="w-4 h-4" />
-            Rastrear carga
-          </Link>
+        <div className="hidden items-center gap-6 lg:flex">
+          <a href={site.contact.phoneHref} className="t-num text-[0.875rem] opacity-75 transition-opacity hover:opacity-100">
+            {site.contact.phoneDisplay}
+          </a>
+          <ActionLink href="/cotacao" variant={onDark ? "light" : "solid"} className="min-h-11 px-4 text-[0.875rem]">
+            Solicitar cotação
+          </ActionLink>
         </div>
 
-        {/* Mobile Menu */}
-        <div className="xl:hidden flex items-center pointer-events-auto">
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" className={`cursor-pointer transition-colors w-12 h-12 p-2 flex items-center justify-center ${
-                scrolled ? 'text-slate-900 hover:bg-slate-100' : 'text-white hover:bg-white/20'
-              }`}>
-                <svg className="size-8" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                  <line x1="3" y1="12" x2="21" y2="12"></line>
-                  <line x1="3" y1="6" x2="21" y2="6"></line>
-                  <line x1="3" y1="18" x2="21" y2="18"></line>
-                </svg>
-                <span className="sr-only">Abrir menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" showCloseButton={false} className="bg-[#070d1f]/95 backdrop-blur-2xl border-l-white/10 text-white w-[90vw] max-w-[420px] flex flex-col h-full p-0">
-              {/* Header do Menu */}
-              <div className="p-8 pb-4 flex items-center justify-between">
-                <Image 
-                  src={`${basePath}/brand/logo/monochrome/Logo_Krona_Branco.png`} 
-                  alt="Krona Express" 
-                  width={140} 
-                  height={40} 
-                  className="h-9 w-auto object-contain"
-                />
-                <SheetClose asChild>
-                  <Button variant="ghost" size="icon" className="rounded-full bg-white/5 hover:bg-white/20 text-white/70 hover:text-white border border-white/10 transition-all">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 6L6 18"/><path d="M6 6l12 12"/></svg>
-                    <span className="sr-only">Close</span>
-                  </Button>
-                </SheetClose>
-                <SheetTitle className="sr-only text-white">Menu de Navegação</SheetTitle>
-              </div>
-
-              {/* Lista de Navegação */}
-              <div className="flex-1 overflow-y-auto px-8 py-8 flex flex-col justify-start mt-8">
-                <div className="flex flex-col gap-6">
-                  {navItems.map((item) => {
-                    const isActive = item.href === "/" ? isHome : pathname.startsWith(item.href) || pathname.includes(item.href.replace('/#', ''));
-                    return (
-                      <Link 
-                        key={item.name} 
-                        href={item.href} 
-                        className={`group flex items-center text-2xl md:text-3xl font-normal tracking-tight transition-all duration-300 ${
-                          isActive ? "text-white translate-x-2" : "text-white/50 hover:text-white hover:translate-x-2"
-                        }`}
-                      >
-                        {item.name}
-                        {isActive && <div className="ml-4 w-2 h-2 bg-blue-400 rounded-full shadow-[0_0_10px_rgba(96,165,250,0.8)]" />}
-                      </Link>
-                    );
-                  })}
-                </div>
-              </div>
-
-              {/* Rodapé Fixo */}
-              <div className="px-4 sm:px-8 pb-8 pt-6 border-t border-white/10 bg-white/5">
-                <div className="flex flex-col gap-3 justify-center items-center mb-6 text-white/60 text-[13px] sm:text-sm font-medium">
-                  <a href="tel:1140000000" className="flex items-center gap-2 hover:text-white transition-colors">
-                    <Call02Icon className="w-4 h-4 shrink-0" /> (11) 4000-0000
-                  </a>
-                  <a href="mailto:comercial@kronaexpress.com.br" className="flex items-center gap-2 hover:text-white transition-colors whitespace-nowrap">
-                    <Mail01Icon className="w-4 h-4 shrink-0" /> comercial@kronaexpress.com.br
-                  </a>
-                </div>
-                
-                <SheetClose asChild>
-                  <Button asChild className="w-full h-14 bg-[#0E3F8E] hover:bg-blue-700 text-white font-bold text-lg rounded-xl shadow-[0_8px_20px_rgba(14,63,142,0.3)] hover:shadow-[0_10px_25px_rgba(14,63,142,0.5)] transition-all">
-                    <Link href="/cotacao">
-                      Solicitar Cotação
-                    </Link>
-                  </Button>
-                </SheetClose>
-              </div>
-            </SheetContent>
-          </Sheet>
-        </div>
+        <MobileMenu pathname={pathname} />
       </div>
     </header>
   );

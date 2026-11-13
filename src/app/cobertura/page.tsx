@@ -1,26 +1,53 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { CoverageSection } from "@/components/sections/coverage-section";
-import { CoverageMapSection } from "@/components/sections/coverage-map-section";
+import { PageHero } from "@/components/krona/page-hero";
+import { CtaList } from "@/components/krona/cta-list";
 
+export const metadata: Metadata = {
+  title: "Área de atendimento",
+  description: "A viabilidade de cada frete com a Krona Express depende de origem, destino, tipo de carga, modalidade e condições operacionais. Consulte pela cotação.",
+  alternates: { canonical: "cobertura/" },
+};
+
+/**
+ * Página mantida por compatibilidade de URL. O conteúdo anterior descrevia uma malha de cobertura
+ * que não está confirmada; até haver dados reais, a página orienta o cliente a consultar a viabilidade.
+ */
 export default function CoberturaPage() {
   return (
-    <div className="flex min-h-screen flex-col">
-      <Header />
-      <main className="flex-1">
-        <div className="bg-[#111111] pt-40 pb-20 border-b relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=2000&q=80')] opacity-20 bg-cover bg-center"></div>
-          <div className="container mx-auto px-4 text-center relative z-10">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">Nossa Cobertura</h1>
-            <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
-              Conexões diárias e otimizadas entre as regiões Sudeste, Sul e Centro-Oeste com prazos padronizados e máxima segurança.
-            </p>
+    <>
+      <Header tone="light" />
+      <main id="conteudo">
+        <PageHero
+          label="Área de atendimento"
+          title={["Área de", "atendimento"]}
+          lead="A disponibilidade de cada frete é avaliada caso a caso, conforme origem, destino, tipo de carga, modalidade e condições operacionais."
+        />
+        <section className="bg-paper pt-[clamp(1rem,1rem+2vw,3rem)]" aria-labelledby="como-avaliamos">
+          <div className="k-container">
+            <div className="k-grid gap-y-8">
+              <h2 id="como-avaliamos" className="t-h3 col-span-12 lg:col-span-4">
+                O que avaliamos antes de confirmar um frete
+              </h2>
+              <ul className="t-body col-span-12 space-y-3 text-steel lg:col-span-7 lg:col-start-6">
+                <li>A origem e o destino da carga, incluindo as condições de acesso nos dois endereços.</li>
+                <li>O tipo de carga, o peso, o volume e o valor da nota fiscal.</li>
+                <li>A modalidade mais adequada: lotação, fracionada, logística reversa ou operação dedicada.</li>
+                <li>As condições operacionais, como janela de coleta, prazo de entrega e necessidade de agendamento.</li>
+              </ul>
+            </div>
           </div>
-        </div>
-        <CoverageSection />
-        <CoverageMapSection />
+        </section>
+        <CtaList
+          title="Consulte a viabilidade do seu frete"
+          items={[
+            { label: "Solicitar cotação", href: "/cotacao" },
+            { label: "Falar com a equipe", href: "/contato" },
+          ]}
+        />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

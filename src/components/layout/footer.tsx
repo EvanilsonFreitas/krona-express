@@ -1,87 +1,106 @@
 import Link from "next/link";
-import Image from "next/image";
-import { Call02Icon, Mail01Icon, Location01Icon } from "hugeicons-react";
+import { nav, services, site, whatsappLink } from "@/config/site";
+import { asset } from "@/lib/asset";
+import { ActionLink } from "@/components/krona/ui";
 
-export function Footer() {
-  const isProd = process.env.NODE_ENV === 'production';
-  const basePath = isProd ? '/krona-express' : '';
+export function Footer({ showStatement = false }: { showStatement?: boolean }) {
+  const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-white text-slate-900 border-t border-slate-200">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Column 1 */}
-          <div className="space-y-4">
-            <img 
-              src={`${basePath}/brand/logo/primary/Logo_Krona_Original.png`} 
-              alt="Krona Express" 
-              className="h-10 w-auto object-contain" 
-            />
-            <p className="text-sm text-slate-600 leading-relaxed">
-              Excelência em logística rodoviária pesada. Nosso compromisso é com o transporte seguro e pontual de suas cargas por todo o território nacional.
+    <footer className="on-dark bg-ink text-white" data-surface="dark">
+      {showStatement && (
+        <div className="k-container pt-[clamp(5rem,3rem+6vw,9rem)]">
+          <div className="k-grid gap-y-10">
+            <p className="t-h1 col-span-12 lg:col-span-9">
+              Sua próxima carga começa com uma conversa.
+            </p>
+            <div className="col-span-12 flex flex-col gap-3 sm:flex-row lg:col-span-12">
+              <ActionLink href="/cotacao" variant="light" className="sm:min-w-64">
+                Solicitar cotação
+              </ActionLink>
+              <ActionLink href={whatsappLink()} external icon="whatsapp" variant="outline-inverse" className="sm:min-w-64">
+                Falar no WhatsApp
+              </ActionLink>
+            </div>
+          </div>
+          <div className="mt-[clamp(4rem,2rem+5vw,7rem)] h-px bg-line-inverse" />
+        </div>
+      )}
+
+      <div className="k-container py-14">
+        <div className="k-grid gap-y-12">
+          <div className="col-span-12 md:col-span-4 lg:col-span-5">
+            {/* eslint-disable-next-line @next/next/no-img-element -- logotipo estático */}
+            <img src={asset("/brand/logo/monochrome/Logo_Krona_Branco.png")} alt="Krona Express" width={84} height={56} className="h-14 w-auto" />
+            <p className="t-small mt-6 max-w-sm text-steel-2">
+              Transporte rodoviário de cargas com atendimento direto e cada embarque acompanhado de perto.
             </p>
           </div>
 
-          {/* Column 2 */}
-          <div className="space-y-4">
-            <h4 className="font-bold text-lg">Soluções Logísticas</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li><Link href="/servicos/#lotacao" className="hover:text-[#114092] transition-colors">Carga Lotação</Link></li>
-              <li><Link href="/servicos/#fracionada" className="hover:text-[#114092] transition-colors">Carga Fracionada</Link></li>
-              <li><Link href="/servicos/#reversa" className="hover:text-[#114092] transition-colors">Logística Reversa</Link></li>
-              <li><Link href="/servicos/#especiais" className="hover:text-[#114092] transition-colors">Armazenagem / Cross-docking</Link></li>
+          <div className="col-span-6 md:col-span-2 lg:col-span-2">
+            <p className="t-label text-white">Serviços</p>
+            <ul className="mt-4 space-y-2.5 t-small text-steel-2">
+              {services.map((s) => (
+                <li key={s.id}>
+                  <Link href={`/servicos#${s.id}`} className="k-link">
+                    {s.title}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
 
-          {/* Column 3 */}
-          <div className="space-y-4">
-            <h4 className="font-bold text-lg">Institucional</h4>
-            <ul className="space-y-2 text-sm text-slate-600">
-              <li><Link href="/sobre/#sobre-nos" className="hover:text-[#114092] transition-colors">Sobre Nós</Link></li>
-              <li><Link href="/sobre/#qualidade" className="hover:text-[#114092] transition-colors">Política de Qualidade</Link></li>
-              <li><Link href="/sobre/#gerenciamento-risco" className="hover:text-[#114092] transition-colors">Gerenciamento de Risco</Link></li>
-              <li><Link href="/contato/" className="hover:text-[#114092] transition-colors">Contato</Link></li>
+          <div className="col-span-6 md:col-span-2 lg:col-span-2">
+            <p className="t-label text-white">Empresa</p>
+            <ul className="mt-4 space-y-2.5 t-small text-steel-2">
+              {nav.slice(1).map((n) => (
+                <li key={n.href}>
+                  <Link href={n.href} className="k-link">
+                    {n.label}
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/cobertura" className="k-link">
+                  Área de atendimento
+                </Link>
+              </li>
             </ul>
           </div>
 
-          {/* Column 4 */}
-          <div className="space-y-4">
-            <h4 className="font-bold text-lg">Atendimento</h4>
-            <ul className="space-y-3 text-sm text-slate-600">
-              <li className="flex items-start gap-2">
-                <Location01Icon className="w-5 h-5 shrink-0 text-[#114092]" />
-                <span>Rua da Logística, 1000<br />São Paulo - SP</span>
+          <div className="col-span-12 md:col-span-4 lg:col-span-3">
+            <p className="t-label text-white">Atendimento</p>
+            <ul className="mt-4 space-y-2.5 t-small text-steel-2">
+              <li>
+                <a href={site.contact.phoneHref} className="k-link t-num">
+                  {site.contact.phoneDisplay}
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Call02Icon className="w-5 h-5 shrink-0 text-[#114092]" />
-                <span>(11) 4000-0000</span>
+              <li>
+                <a href={`mailto:${site.contact.email}`} className="k-link break-all">
+                  {site.contact.email}
+                </a>
               </li>
-              <li className="flex items-center gap-2">
-                <Mail01Icon className="w-5 h-5 shrink-0 text-[#114092]" />
-                <span>comercial@kronaexpress.com.br</span>
+              <li>{site.contact.hours}</li>
+              <li>
+                {site.contact.address[0]}
+                <br />
+                {site.contact.address[1]}
               </li>
             </ul>
           </div>
         </div>
       </div>
-      
-      {/* Bottom Bar */}
-      <div className="bg-[#070d1f] text-white py-6">
-        <div className="container mx-auto px-4 flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-blue-100/60">
-          <p>© {new Date().getFullYear()} Krona Express. Todos os direitos reservados. CNPJ: 00.000.000/0001-00</p>
-          <div className="flex gap-4">
-            <Link href="#" className="hover:text-white transition-colors">Termos de Uso</Link>
-            <Link href="#" className="hover:text-white transition-colors">Política de Privacidade</Link>
-          </div>
+
+      <div className="border-t border-line-inverse">
+        <div className="k-container flex flex-col gap-4 py-6 text-steel-2 md:flex-row md:items-center md:justify-between">
+          <p className="t-caption">
+            © {year} {site.name}. CNPJ {site.contact.cnpj}
+          </p>
           <div className="flex items-center gap-3">
-            <span>Desenvolvido por</span>
-            <Link href="#" target="_blank" rel="noopener noreferrer" className="block cursor-pointer">
-              <img 
-                src={`${basePath}/brand/logo/symbol/logo_Onebi.svg`} 
-                alt="Onebi Analytics" 
-                className="h-7 w-auto opacity-100 hover:scale-105 transition-all drop-shadow-sm" 
-              />
-            </Link>
+            <span className="t-caption">Desenvolvido por</span>
+            {/* eslint-disable-next-line @next/next/no-img-element -- logotipo do desenvolvedor (existente) */}
+            <img src={asset("/brand/logo/symbol/logo_Onebi.svg")} alt="Onebi Analytics" width={80} height={28} className="h-6 w-auto" />
           </div>
         </div>
       </div>

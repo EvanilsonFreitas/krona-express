@@ -1,45 +1,36 @@
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
-import { HeroSection } from "@/components/sections/hero-section";
-import { AboutSection } from "@/components/sections/about-section";
-import { StatsSection } from "@/components/sections/stats-section";
-import { ServicesSection } from "@/components/sections/services-section";
-import { QuoteTrackerSection } from "@/components/sections/quote-tracker-section";
-import { FaqSection } from "@/components/sections/faq-section";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { FadeIn } from "@/components/ui/fade-in";
-import { Parallax } from "@/components/ui/parallax";
+import { Hero } from "@/components/home/hero";
+import { Positioning } from "@/components/home/positioning";
+import { Indicators } from "@/components/home/indicators";
+import { ServicesEditorial } from "@/components/home/services-editorial";
+import { RouteProcess } from "@/components/home/route-process";
+import { OperationsPanel } from "@/components/home/operations-panel";
+import { Principles } from "@/components/home/principles";
+import { ImageBand } from "@/components/home/image-band";
+import { CtaList } from "@/components/krona/cta-list";
 
 export default function Home() {
   return (
-    <div className="flex min-h-screen flex-col overflow-x-hidden">
-      <Header />
-      <main className="flex-1">
-        {/* O Hero não precisa de FadeIn da rolagem, ele já entra no load */}
-        <HeroSection />
-
-        <FadeIn direction="up">
-          <AboutSection />
-        </FadeIn>
-
-        <Parallax speed={-0.1} className="relative z-20">
-          <StatsSection />
-        </Parallax>
-
-        <FadeIn direction="up">
-          <ServicesSection />
-        </FadeIn>
-
-        <FadeIn direction="up">
-          <QuoteTrackerSection />
-        </FadeIn>
-
-        <FadeIn direction="up">
-          <FaqSection />
-        </FadeIn>
+    <>
+      <Header tone="dark" />
+      <main id="conteudo">
+        <Hero />
+        <Positioning />
+        <Indicators />
+        <ServicesEditorial />
+        <RouteProcess />
+        <OperationsPanel />
+        <Principles />
+        <ImageBand
+          name="rodovia-serra-aerea"
+          alt="Vista aérea de uma rodovia entre montanhas com caminhões em fila"
+          statement="Durante todo o transporte, você sabe com quem falar sobre a sua carga."
+          focus="40% 70%"
+        />
+        <CtaList />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

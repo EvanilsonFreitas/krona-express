@@ -1,16 +1,54 @@
-import type { Metadata } from "next";
-import { Geist } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { Archivo } from "next/font/google";
 import { cn } from "@/lib/utils";
-import "./globals.css";
-
-const geist = Geist({ subsets: ["latin"], variable: "--font-sans" });
-
-export const metadata: Metadata = {
-  title: "Krona Express",
-};
-
+import { site } from "@/config/site";
+import { asset } from "@/lib/asset";
 import { VLibras } from "@/components/vlibras";
 import { FloatingWhatsApp } from "@/components/floating-whatsapp";
+import "./globals.css";
+
+const archivo = Archivo({
+  subsets: ["latin"],
+  axes: ["wdth"],
+  variable: "--font-archivo",
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  metadataBase: new URL(`${site.url}/`),
+  title: {
+    default: "Krona Express | Transporte rodoviário de cargas",
+    template: "%s | Krona Express",
+  },
+  description: site.description,
+  applicationName: site.name,
+  alternates: { canonical: "./" },
+  openGraph: {
+    type: "website",
+    locale: "pt_BR",
+    siteName: site.name,
+    title: "Krona Express | Transporte rodoviário de cargas",
+    description: site.description,
+    images: [{ url: "media/hero/hero-poster.jpg", width: 1280, height: 720, alt: "Caminhões subindo uma rodovia de serra cercada de mata" }],
+  },
+  twitter: { card: "summary_large_image" },
+  icons: { icon: asset("/brand/logo/primary/Logo_Krona_Original.png") },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#06122a",
+  colorScheme: "light",
+};
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: site.name,
+  url: site.url,
+  logo: `${site.url}/brand/logo/primary/Logo_Krona_Original.png`,
+  description: site.description,
+  areaServed: "BR",
+};
 
 export default function RootLayout({
   children,
@@ -18,11 +56,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={cn("font-sans", geist.variable)} suppressHydrationWarning>
+    <html lang="pt-BR" className={cn(archivo.variable)} suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <a
+          href="#conteudo"
+          className="sr-only z-[70] bg-ink px-4 py-3 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+        >
+          Pular para o conteúdo
+        </a>
         {children}
         <VLibras />
         <FloatingWhatsApp />
+        <script
+          type="application/ld+json"
+          // Conteúdo estático gerado a partir de constantes do projeto (sem dados de usuário).
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd).replace(/</g, "\\u003c") }}
+        />
       </body>
     </html>
   );
