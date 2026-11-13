@@ -169,7 +169,7 @@ export default function SobrePage() {
                   <Photo name="pneu-detalhe" alt="Detalhe da banda de rodagem de um pneu de caminhão" sizes="33vw" className="aspect-[3/4] w-full bg-ink" />
                 </MaskReveal>
               </div>
-              <ul className="col-span-12 grid gap-x-12 gap-y-14 sm:grid-cols-2 md:col-span-7 md:col-start-6 md:self-center">
+              <ul className="col-span-12 grid gap-x-12 gap-y-14 sm:grid-cols-2 md:col-span-7 md:col-start-6 md:grid-cols-1 md:self-center xl:grid-cols-2">
                 {principles.map((p, i) => (
                   <Reveal as="li" key={p.title} delay={i * 0.06} x={0} y={16}>
                     <h3 className="text-[clamp(1.85rem,1.3rem+1.8vw,3rem)] leading-[1.02] font-[520] tracking-[-0.035em]">{p.title}</h3>

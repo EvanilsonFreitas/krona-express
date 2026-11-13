@@ -70,9 +70,16 @@ function CountUp({ item, start, delay, reduce }: { item: Indicator; start: boole
 
   // Prepara o número em 0 enquanto a faixa ainda não foi vista (o HTML inicial traz o valor final).
   useEffect(() => {
-    if (reduce || done.current || !numRef.current) return;
-    numRef.current.textContent = format(0);
-  }, [reduce]);
+    const el = numRef.current;
+    if (!el) return;
+    // Reduced motion: valor final direto, sem contagem.
+    if (reduce) {
+      el.textContent = format(item.value);
+      done.current = true;
+      return;
+    }
+    if (!done.current) el.textContent = format(0);
+  }, [reduce, item.value]);
 
   useEffect(() => {
     const el = numRef.current;

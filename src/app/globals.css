@@ -290,6 +290,16 @@
   }
 }
 
+/* Menu em tela cheia: trava o scroll do documento e oculta widgets flutuantes por cima dele */
+html.menu-open,
+html.menu-open body {
+  overflow: hidden;
+}
+html.menu-open [vw],
+html.menu-open #vlibras-access-wrapper {
+  display: none !important;
+}
+
 /* Hide scrollbar utility (kept from previous version) */
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
