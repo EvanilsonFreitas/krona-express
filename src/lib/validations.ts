@@ -1,38 +1,36 @@
 import { z } from "zod";
 
-const phoneRegex = /^[\d\s\-\+\(\)]+$/;
 const numberRegex = /^\d+([.,]\d+)?$/;
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-export const heroQuoteSchema = z.object({
-  origem: z.string().min(3, "A origem é obrigatória."),
-  destino: z.string().min(3, "O destino é obrigatório."),
-  valor_nf: z.string().min(1, "O valor é obrigatório.").regex(numberRegex, "Insira apenas números."),
-  qtd: z.string().min(1, "A quantidade é obrigatória.").regex(/^\d+$/, "Apenas números inteiros."),
-  peso: z.string().min(1, "O peso é obrigatório.").regex(numberRegex, "Insira apenas números."),
-  nome: z.string().min(3, "O nome/empresa é obrigatório."),
-  email: z.string().regex(emailRegex, "Insira um e-mail válido (ex: email@dominio.com)."),
-  whatsapp: z.string().regex(phoneRegex, "Insira apenas números (ex: 11999999999)").min(10, "Número muito curto."),
+export const modalidades = [
+  { value: "lotacao", label: "Lotação (carga completa)" },
+  { value: "fracionada", label: "Fracionada (carga compartilhada)" },
+  { value: "reversa", label: "Logística reversa" },
+  { value: "dedicada", label: "Operação dedicada" },
+  { value: "indefinida", label: "Ainda não sei, quero uma indicação" },
+] as const;
+
+/** Validação de interface. Quando houver backend, a mesma validação deve ser repetida no servidor. */
+export const quoteSchema = z.object({
+  nome: z.string().trim().min(3, "Informe seu nome ou o nome da empresa.").max(120, "Use no máximo 120 caracteres."),
+  email: z.string().trim().max(160, "E-mail muito longo.").regex(emailRegex, "Informe um e-mail válido, por exemplo nome@empresa.com.br."),
+  telefone: z
+    .string()
+    .trim()
+    .refine((v) => v.replace(/\D/g, "").length >= 10, "Informe um telefone com DDD."),
+  origem: z.string().trim().min(3, "Informe a cidade e o estado, ou o CEP de origem.").max(120, "Use no máximo 120 caracteres."),
+  destino: z.string().trim().min(3, "Informe a cidade e o estado, ou o CEP de destino.").max(120, "Use no máximo 120 caracteres."),
+  modalidade: z.enum(["lotacao", "fracionada", "reversa", "dedicada", "indefinida"], { message: "Escolha uma opção." }),
+  mercadoria: z.string().trim().max(120, "Use no máximo 120 caracteres.").optional(),
+  peso: z.string().trim().min(1, "Informe o peso aproximado.").regex(numberRegex, "Use apenas números, por exemplo 1500."),
+  volumes: z
+    .string()
+    .trim()
+    .optional()
+    .refine((v) => !v || /^\d+$/.test(v), "Use apenas números inteiros."),
+  valor_nf: z.string().trim().min(1, "Informe o valor da nota fiscal.").regex(numberRegex, "Use apenas números, por exemplo 25000,00."),
+  observacoes: z.string().trim().max(1200, "Use no máximo 1.200 caracteres.").optional(),
 });
 
-export type HeroQuoteFormValues = z.infer<typeof heroQuoteSchema>;
-
-export const detailedQuoteSchema = z.object({
-  origem: z.string().min(3, "A origem é obrigatória."),
-  destino: z.string().min(3, "O destino é obrigatório."),
-  tipo_operacao: z.string().min(1, "Selecione o tipo de operação."),
-  peso: z.string().min(1, "O peso é obrigatório.").regex(numberRegex, "Insira apenas números."),
-  valor_nf: z.string().min(1, "O valor é obrigatório.").regex(numberRegex, "Insira apenas números."),
-  nome: z.string().min(3, "O nome/empresa é obrigatório."),
-  contato: z.string().regex(phoneRegex, "Insira apenas números válidos de telefone.").min(10, "Número incompleto."),
-  observacoes: z.string().optional(),
-});
-
-export type DetailedQuoteFormValues = z.infer<typeof detailedQuoteSchema>;
-
-export const trackerSchema = z.object({
-  cnpj: z.string().regex(/^[\d\.\-\/]+$/, "Insira apenas números e pontuações válidas.").min(11, "CPF ou CNPJ inválido (mínimo 11 caracteres)."),
-  nota: z.string().regex(numberRegex, "A NF deve conter apenas números.").min(1, "A NF é obrigatória."),
-});
-
-export type TrackerFormValues = z.infer<typeof trackerSchema>;
+export type QuoteFormValues = z.infer<typeof quoteSchema>;
