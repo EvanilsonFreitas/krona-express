@@ -2,53 +2,48 @@
 
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
+import { whatsappLink } from "@/config/site";
+import { cn } from "@/lib/utils";
+import { WhatsAppIcon } from "@/components/krona/ui";
 
+/**
+ * WhatsApp flutuante — integrado à linguagem (superfície reta, navy),
+ * expande o rótulo no desktop; no mobile fica compacto e não cobre o conteúdo.
+ * Na Home só aparece após o hero (onde o CTA de WhatsApp já está visível).
+ */
 export function FloatingWhatsApp() {
-  const [isVisible, setIsVisible] = useState(false);
   const pathname = usePathname();
-  const isHome = pathname === "/";
-  const isProd = process.env.NODE_ENV === 'production';
-  const basePath = isProd ? '/krona-express' : '';
+  const isHome = (pathname.replace(/\/$/, "") || "/") === "/";
+  const [past, setPast] = useState(false);
 
   useEffect(() => {
-    // Nas demais páginas, ele deve ser fixo independente do scroll
-    if (!isHome) {
-      setIsVisible(true);
-      return;
-    }
+    const onScroll = () => setPast(window.scrollY > window.innerHeight * 0.8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    const handleScroll = () => {
-      // Quando o scroll passar da área inicial do Hero (onde já tem o botão de WhatsApp)
-      // Mostramos o botão flutuante. Assumimos que o botão do Hero some da tela após ~500px de scroll.
-      setIsVisible(window.scrollY > 500);
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Checar estado inicial
-
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [isHome]);
+  const visible = !isHome || past;
 
   return (
-    <div 
-      className={`fixed bottom-6 right-6 z-50 transition-all duration-500 transform ${
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-16 opacity-0 pointer-events-none"
-      }`}
+    <a
+      href={whatsappLink("Olá! Gostaria de falar com um consultor da Krona Express.")}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Falar no WhatsApp"
+      tabIndex={visible ? 0 : -1}
+      aria-hidden={!visible}
+      className={cn(
+        "group fixed right-4 bottom-4 z-[var(--z-floating)] flex h-13 items-center overflow-hidden bg-ink text-white shadow-[0_10px_30px_-12px_rgb(6_18_42/0.55)] transition-[transform,opacity] duration-500 ease-[var(--ease-route)] md:right-6 md:bottom-6",
+        visible ? "translate-y-0 opacity-100" : "pointer-events-none translate-y-4 opacity-0",
+      )}
     >
-      <Link 
-        href="https://wa.me/551140000000?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20um%20consultor." 
-        target="_blank" 
-        rel="noopener noreferrer"
-        className="group flex items-center justify-center w-[60px] h-[60px] cursor-pointer"
-        aria-label="Fale conosco no WhatsApp"
-      >
-        <img 
-          src={`${basePath}/images/icons/whatsapp.png`} 
-          alt="WhatsApp" 
-          className="w-full h-full object-contain drop-shadow-[0_4px_15px_rgba(37,211,102,0.4)] group-hover:scale-110 group-hover:drop-shadow-[0_8px_25px_rgba(37,211,102,0.6)] transition-all duration-300"
-        />
-      </Link>
-    </div>
+      <span className="flex size-13 shrink-0 items-center justify-center bg-krona">
+        <WhatsAppIcon className="size-[22px]" />
+      </span>
+      <span className="hidden max-w-0 overflow-hidden whitespace-nowrap text-[0.875rem] font-medium transition-[max-width,padding] duration-500 ease-[var(--ease-route)] group-hover:max-w-48 group-hover:px-4 group-focus-visible:max-w-48 group-focus-visible:px-4 md:block">
+        Falar no WhatsApp
+      </span>
+    </a>
   );
 }
