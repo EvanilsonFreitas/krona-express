@@ -1,8 +1,27 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import { motion, useReducedMotion, useScroll, useTransform, type MotionValue } from "motion/react";
-import { cn } from "@/lib/utils";
+import { useRef, useSyncExternalStore, type ReactNode } from "react";
+import { motion, useScroll, useTransform, type MotionValue } from "motion/react";
+
+
+const reducedQuery = "(prefers-reduced-motion: reduce)";
+function subscribeReduced(cb: () => void) {
+  const mq = window.matchMedia(reducedQuery);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+
+/**
+ * prefers-reduced-motion seguro para hidratação: no servidor e na hidratação vale `false`;
+ * logo depois o cliente passa a usar a preferência real, sem mismatch de HTML.
+ */
+export function usePrefersReducedMotion() {
+  return useSyncExternalStore(
+    subscribeReduced,
+    () => window.matchMedia(reducedQuery).matches,
+    () => false,
+  );
+}
 
 /** Curva padrão da linguagem "movimento ao longo de uma rota". */
 export const routeEase = [0.16, 1, 0.3, 1] as const;
@@ -19,7 +38,7 @@ type RevealProps = {
 };
 
 export function Reveal({ children, className, delay = 0, x = -28, y = 0, as = "div", amount = 0.3 }: RevealProps) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const Tag = motion[as];
   if (reduce) {
     const Plain = as;
@@ -38,19 +57,23 @@ export function Reveal({ children, className, delay = 0, x = -28, y = 0, as = "d
   );
 }
 
-/** Revelação de imagem por máscara, no sentido do percurso. */
+/**
+ * Revelação de imagem por máscara, no sentido do percurso.
+ * O observador fica no wrapper externo: no Chrome, um elemento 100% recortado por clip-path
+ * nunca é considerado visível pelo IntersectionObserver.
+ */
 export function MaskReveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   if (reduce) return <div className={className}>{children}</div>;
   return (
-    <motion.div
-      className={className}
-      initial={{ clipPath: "inset(0% 100% 0% 0%)" }}
-      whileInView={{ clipPath: "inset(0% 0% 0% 0%)" }}
-      viewport={{ once: true, amount: 0.25 }}
-      transition={{ duration: 1.25, ease: routeEase, delay }}
-    >
-      {children}
+    <motion.div className={className} initial="hidden" whileInView="shown" viewport={{ once: true, amount: 0.2 }}>
+      <motion.div
+        className="h-full"
+        variants={{ hidden: { clipPath: "inset(0% 100% 0% 0%)" }, shown: { clipPath: "inset(0% 0% 0% 0%)" } }}
+        transition={{ duration: 1.25, ease: routeEase, delay }}
+      >
+        {children}
+      </motion.div>
     </motion.div>
   );
 }
@@ -61,11 +84,16 @@ export function MaskReveal({ children, className, delay = 0 }: { children: React
  */
 export function ScrollText({ text, className, mutedClassName = "opacity-[0.16]" }: { text: string; className?: string; mutedClassName?: string }) {
   const ref = useRef<HTMLParagraphElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start 0.85", "end 0.45"] });
   const words = text.split(" ");
 
-  if (reduce) return <p className={className}>{text}</p>;
+  if (reduce)
+    return (
+      <p ref={ref} className={className}>
+        {text}
+      </p>
+    );
 
   return (
     <p ref={ref} className={className}>

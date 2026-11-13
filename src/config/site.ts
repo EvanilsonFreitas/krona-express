@@ -89,3 +89,46 @@ export const services: Service[] = [
     quoteValue: "dedicada",
   },
 ];
+
+export type Indicator = {
+  value: number;
+  prefix?: string;
+  suffix?: string;
+  label: string;
+  /** Só indicadores com base real e confirmada são publicados. */
+  confirmed: boolean;
+  /** Origem do dado, para auditoria. */
+  source: string;
+};
+
+/**
+ * Faixa de indicadores da Home (recupera a antiga StatsSection).
+ *
+ * Os quatro números da versão anterior (98% de cumprimento de prazo, monitoramento 24/7,
+ * 100% de carga assegurada e "rastreabilidade total") não têm fonte no projeto e permanecem
+ * desativados até a Krona confirmar os valores reais. Para publicar, preencher o valor e
+ * marcar `confirmed: true`.
+ */
+export const indicators: Indicator[] = [
+  {
+    value: services.length,
+    label: "modalidades de transporte rodoviário",
+    confirmed: true,
+    source: "Serviços confirmados no projeto",
+  },
+  {
+    value: 7,
+    label: "etapas acompanhadas pela nossa equipe em cada embarque",
+    confirmed: true,
+    source: "Processo descrito em 'Como sua carga avança'",
+  },
+  {
+    value: 10,
+    suffix: " h",
+    label: "de atendimento comercial em cada dia útil",
+    confirmed: true,
+    source: "Horário de atendimento (8h às 18h) já publicado no site; confirmar junto com os contatos",
+  },
+  { value: 98, suffix: "%", label: "das entregas dentro do prazo", confirmed: false, source: "Valor da versão anterior, sem fonte" },
+  { value: 100, suffix: "%", label: "das cargas com seguro", confirmed: false, source: "Valor da versão anterior, sem fonte" },
+];

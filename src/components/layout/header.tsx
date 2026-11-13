@@ -4,12 +4,12 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Dialog } from "radix-ui";
-import { motion, AnimatePresence, useReducedMotion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { nav, site, whatsappLink } from "@/config/site";
 import { asset } from "@/lib/asset";
 import { cn } from "@/lib/utils";
 import { ActionLink, ArrowIcon, WhatsAppIcon } from "@/components/krona/ui";
-import { routeEase } from "@/components/krona/motion";
+import { routeEase, usePrefersReducedMotion } from "@/components/krona/motion";
 
 type Tone = "dark" | "light";
 
@@ -30,7 +30,7 @@ export function Header({ tone = "dark" }: { tone?: Tone }) {
   const [hidden, setHidden] = useState(false);
   const [open, setOpen] = useState(false);
   const lastY = useRef(0);
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   useEffect(() => {
     const onScroll = () => {

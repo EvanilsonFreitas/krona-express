@@ -36,7 +36,6 @@ export function Photo({
     <picture className={cn("block overflow-hidden", className)}>
       <source type="image/avif" srcSet={srcSet("avif")} sizes={sizes} />
       <source type="image/webp" srcSet={srcSet("webp")} sizes={sizes} />
-      {/* eslint-disable-next-line @next/next/no-img-element -- export estático: <picture> entrega AVIF/WebP com srcset */}
       <img
         src={src(1280, "webp")}
         alt={alt}

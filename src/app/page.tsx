@@ -2,6 +2,7 @@ import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Hero } from "@/components/home/hero";
 import { Positioning } from "@/components/home/positioning";
+import { Indicators } from "@/components/home/indicators";
 import { ServicesEditorial } from "@/components/home/services-editorial";
 import { RouteProcess } from "@/components/home/route-process";
 import { ImageBand } from "@/components/home/image-band";
@@ -15,6 +16,7 @@ export default function Home() {
       <main id="conteudo">
         <Hero />
         <Positioning />
+        <Indicators />
         <ServicesEditorial />
         <RouteProcess />
         <Principles />

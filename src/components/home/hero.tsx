@@ -1,11 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { asset } from "@/lib/asset";
 import { whatsappLink } from "@/config/site";
 import { ActionLink, TextLink } from "@/components/krona/ui";
-import { routeEase } from "@/components/krona/motion";
+import { routeEase, usePrefersReducedMotion } from "@/components/krona/motion";
 
 const lines = ["Fretes rodoviários", "planejados com você."];
 
@@ -18,7 +18,7 @@ const lines = ["Fretes rodoviários", "planejados com você."];
  * - prefers-reduced-motion: sem autoplay, poster estático; controle de play disponível.
  */
 export function Hero() {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const sectionRef = useRef<HTMLElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [ready, setReady] = useState(false);
@@ -72,7 +72,6 @@ export function Hero() {
         <picture className="absolute inset-0">
           <source media="(max-width: 767px)" srcSet={asset("/media/hero/hero-poster-mobile.webp")} type="image/webp" />
           <source srcSet={asset("/media/hero/hero-poster.webp")} type="image/webp" />
-          {/* eslint-disable-next-line @next/next/no-img-element -- poster art-directed (LCP) */}
           <img src={asset("/media/hero/hero-poster.jpg")} alt="" fetchPriority="high" className="h-full w-full object-cover" />
         </picture>
         <video

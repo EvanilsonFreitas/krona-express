@@ -1,13 +1,14 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useScroll, useTransform } from "motion/react";
 import { Photo } from "@/components/krona/photo";
+import { usePrefersReducedMotion } from "@/components/krona/motion";
 
 /** Faixa fotográfica full-bleed com parallax leve e uma única frase. */
 export function ImageBand({ name, alt, statement, focus }: { name: string; alt: string; statement: string; focus?: string }) {
   const ref = useRef<HTMLElement>(null);
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
   const y = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"]);
 

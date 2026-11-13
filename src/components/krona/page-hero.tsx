@@ -1,9 +1,9 @@
 "use client";
 
 import type { ReactNode } from "react";
-import { motion, useReducedMotion } from "motion/react";
+import { motion } from "motion/react";
 import { Photo } from "@/components/krona/photo";
-import { routeEase } from "@/components/krona/motion";
+import { routeEase, usePrefersReducedMotion } from "@/components/krona/motion";
 
 type ImageProps = { name: string; alt: string; focus?: string };
 
@@ -25,7 +25,7 @@ export function PageHero({
   image?: ImageProps;
   aside?: ReactNode;
 }) {
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
   const dark = Boolean(image);
 
   const titleEl = (

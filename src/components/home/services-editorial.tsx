@@ -2,12 +2,12 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/react";
+import { AnimatePresence, motion, useInView } from "motion/react";
 import { services, type ServiceId } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Photo } from "@/components/krona/photo";
 import { ArrowIcon } from "@/components/krona/ui";
-import { Reveal, routeEase } from "@/components/krona/motion";
+import { Reveal, routeEase, usePrefersReducedMotion } from "@/components/krona/motion";
 
 const images: Record<ServiceId, { name: string; alt: string; focus?: string }> = {
   lotacao: { name: "estrada-chuva-lanternas", alt: "Carretas em rodovia sob chuva, lanternas traseiras acesas", focus: "60% 50%" },
@@ -22,10 +22,10 @@ const images: Record<ServiceId, { name: string; alt: string; focus?: string }> =
  */
 export function ServicesEditorial() {
   const [active, setActive] = useState<ServiceId>("lotacao");
-  const reduce = useReducedMotion();
+  const reduce = usePrefersReducedMotion();
 
   return (
-    <section className="k-section border-t border-line bg-paper" aria-labelledby="servicos-home">
+    <section className="k-section bg-paper" aria-labelledby="servicos-home">
       <div className="k-container">
         <div className="k-grid gap-y-12">
           {/* Sticky image (desktop) */}
