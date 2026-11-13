@@ -12,8 +12,8 @@ const faqs = [
     a: "Para emitir o CT-e e o MDF-e, precisamos da Nota Fiscal Eletrônica (NF-e) da mercadoria, com o arquivo XML e a DANFE. Origem, destino, peso, volumes e valor devem estar corretamente declarados na nota.",
   },
   {
-    q: "Como funciona o seguro da carga?",
-    a: "As condições de seguro e de gerenciamento de risco dependem do tipo de mercadoria, do valor e da rota, e são apresentadas na proposta comercial. Se a sua operação tem exigências específicas, informe na solicitação de cotação.",
+    q: "E o seguro da carga?",
+    a: "Questões sobre seguro e gerenciamento de risco são tratadas caso a caso com a nossa equipe comercial, considerando o tipo de mercadoria, o valor da nota fiscal e a rota. Se a sua operação tem exigências específicas de seguro, informe na solicitação de cotação para que possamos avaliar.",
   },
   {
     q: "Como acompanho uma carga em transporte?",

@@ -1,9 +1,13 @@
 /**
  * Fonte única de dados institucionais e de navegação.
  *
- * ATENÇÃO: telefone, WhatsApp, endereço e CNPJ abaixo são os mesmos placeholders
- * que já existiam no projeto. Substituir pelos dados reais antes da publicação.
+ * BLOQUEIO DE PRODUÇÃO: telefone, WhatsApp, e-mail, endereço, CNPJ e horário abaixo são os
+ * placeholders herdados da versão anterior e ainda não foram confirmados pelo responsável do
+ * projeto. Substituir pelos dados reais antes da publicação. Não duplicar estes valores em componentes.
  */
+
+/** Horário de atendimento comercial em dias úteis (placeholder herdado; confirmar). */
+const businessHours = { start: 8, end: 18 } as const;
 
 export const site = {
   name: "Krona Express",
@@ -15,7 +19,8 @@ export const site = {
     phoneHref: "tel:+551140000000",
     whatsappNumber: "551140000000",
     email: "comercial@kronaexpress.com.br",
-    hours: "Segunda a sexta, das 8h às 18h",
+    hours: `Segunda a sexta, das ${businessHours.start}h às ${businessHours.end}h`,
+    businessHours,
     address: ["Rua da Logística, 1000", "São Paulo, SP"],
     cnpj: "00.000.000/0001-00",
     instagram: "https://instagram.com/kronaexpress",
@@ -90,6 +95,38 @@ export const services: Service[] = [
   },
 ];
 
+/** Etapas do processo de atendimento ("Como sua carga avança"). Fonte única também para a faixa de indicadores. */
+export const processSteps = [
+  {
+    title: "Solicitação",
+    text: "Você envia os dados da carga pelo formulário, pelo WhatsApp ou por telefone: origem, destino, peso, volumes e o prazo que precisa.",
+  },
+  {
+    title: "Análise",
+    text: "Nossa equipe avalia a carga e as condições de coleta e de entrega. Se faltar alguma informação, entramos em contato com você.",
+  },
+  {
+    title: "Planejamento",
+    text: "Definimos a rota, o tipo de veículo e a data de coleta mais adequados para esse embarque.",
+  },
+  {
+    title: "Proposta",
+    text: "Enviamos a proposta com a modalidade indicada e as condições do transporte. Com o seu aceite, a coleta é agendada.",
+  },
+  {
+    title: "Coleta",
+    text: "Retiramos a carga no endereço combinado e conferimos a nota fiscal antes da saída.",
+  },
+  {
+    title: "Acompanhamento",
+    text: "Enquanto a carga está na estrada, você pode falar com a nossa equipe no horário de atendimento para saber como está o transporte.",
+  },
+  {
+    title: "Entrega",
+    text: "Depois da entrega no destino, confirmamos com você a conclusão do serviço.",
+  },
+] as const;
+
 export type Indicator = {
   value: number;
   prefix?: string;
@@ -117,13 +154,13 @@ export const indicators: Indicator[] = [
     source: "Serviços confirmados no projeto",
   },
   {
-    value: 7,
+    value: processSteps.length,
     label: "etapas acompanhadas pela nossa equipe em cada embarque",
     confirmed: true,
     source: "Processo descrito em 'Como sua carga avança'",
   },
   {
-    value: 10,
+    value: businessHours.end - businessHours.start,
     suffix: " h",
     label: "de atendimento comercial em cada dia útil",
     confirmed: true,

@@ -126,7 +126,7 @@ export function MobileMenu({ pathname }: { pathname: string }) {
                     {/* Atendimento */}
                     <motion.div
                       {...item(0.36)}
-                      className="k-container hidden shrink-0 grid-cols-2 gap-6 border-t border-line-inverse py-6 md:grid"
+                      className="k-container hidden shrink-0 grid-cols-[auto_minmax(0,1fr)] gap-x-8 border-t border-line-inverse py-6 md:grid"
                     >
                       <ContactBlock />
                     </motion.div>
@@ -177,7 +177,7 @@ export function MobileMenu({ pathname }: { pathname: string }) {
                         </span>
                         <ArrowIcon direction="up-right" />
                       </a>
-                      <div className="grid grid-cols-2 gap-4 pt-4 md:hidden [@media(max-height:600px)]:hidden">
+                      <div className="grid grid-cols-[auto_minmax(0,1fr)] gap-x-4 pt-4 min-[380px]:gap-x-6 md:hidden [@media(max-height:600px)]:hidden">
                         <ContactBlock />
                       </div>
                     </motion.div>
@@ -203,7 +203,11 @@ function ContactBlock() {
       </div>
       <div className="min-w-0">
         <p className="text-[0.8125rem] text-steel-2">E-mail</p>
-        <a href={`mailto:${site.contact.email}`} className="mt-1 block truncate text-[0.9375rem] text-white">
+        <a
+          href={`mailto:${site.contact.email}`}
+          title={site.contact.email}
+          className="mt-1 block truncate text-[0.8125rem] text-white min-[380px]:text-[0.875rem] min-[400px]:text-[0.9375rem]"
+        >
           {site.contact.email}
         </a>
       </div>

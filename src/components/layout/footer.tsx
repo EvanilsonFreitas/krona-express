@@ -60,6 +60,11 @@ export function Footer({ showStatement = false }: { showStatement?: boolean }) {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link href="/cobertura" className="k-link">
+                  Área de atendimento
+                </Link>
+              </li>
             </ul>
           </div>
 

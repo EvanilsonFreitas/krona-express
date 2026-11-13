@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 const next = [
-  { title: "Recebemos os dados", text: "Sua solicitação chega à equipe que organiza os fretes." },
+  { title: "Você envia a mensagem", text: "Depois de revisar os dados, você envia o resumo pelo WhatsApp ou pelo e-mail." },
   { title: "Analisamos a carga", text: "Se precisarmos de alguma informação adicional, entramos em contato." },
   { title: "Enviamos a proposta", text: "Você recebe a modalidade indicada e as condições do transporte." },
 ];
@@ -39,7 +39,7 @@ export default function CotacaoPage() {
                     Conte para nós sobre a sua carga. Quanto mais detalhes, mais precisa será a proposta.
                   </p>
 
-                  <h2 className="mt-12 text-[1.0625rem] font-semibold">Depois do envio</h2>
+                  <h2 className="mt-12 text-[1.0625rem] font-semibold">Como funciona</h2>
                   <ol className="mt-5 space-y-5">
                     {next.map((n, i) => (
                       <li key={n.title} className="grid grid-cols-[1.75rem_1fr] gap-x-2">

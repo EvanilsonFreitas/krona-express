@@ -123,6 +123,8 @@ export function QuoteForm() {
   const uid = useId();
   const id = (name: string) => `${uid}-${name}`;
   const [sent, setSent] = useState<QuoteFormValues | null>(null);
+  const [channel, setChannel] = useState<"whatsapp" | "email" | null>(null);
+  const [copy, setCopy] = useState<"idle" | "ok" | "error">("idle");
   const successRef = useRef<HTMLDivElement>(null);
 
   const preset = serviceParam[params.get("servico") ?? ""];
@@ -154,10 +156,10 @@ export function QuoteForm() {
     if (sent) successRef.current?.focus();
   }, [sent]);
 
-  const onSubmit = async (values: QuoteFormValues) => {
-    // Ainda não há backend de envio (integração prevista no README).
-    // O resumo é preparado para envio pelos canais reais da empresa.
-    await new Promise((r) => setTimeout(r, 600));
+  const onSubmit = (values: QuoteFormValues) => {
+    // Não há backend de envio (integração com Resend prevista no README).
+    // Nada é transmitido aqui: os dados apenas são validados e preparados para o cliente
+    // concluir o envio pelo WhatsApp ou pelo e-mail.
     setSent(values);
   };
 
@@ -179,7 +181,7 @@ export function QuoteForm() {
       <AnimatePresence mode="wait" initial={false}>
         {sent ? (
           <motion.div
-            key="success"
+            key="review"
             ref={successRef}
             tabIndex={-1}
             initial={reduce ? false : { opacity: 0, y: 16 }}
@@ -187,34 +189,75 @@ export function QuoteForm() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.6, ease: routeEase }}
             className="focus:outline-none"
-            role="status"
           >
-            <span className="flex size-12 items-center justify-center bg-success text-white" aria-hidden="true">
-              <svg viewBox="0 0 24 24" className="size-6" fill="none"><path d="M5 12.5 10 17 19 7" stroke="currentColor" strokeWidth="1.8" /></svg>
-            </span>
-            <h2 className="t-h2 mt-8">Dados conferidos</h2>
+            <h2 className="t-h2">Revise e escolha como enviar</h2>
             <p className="t-lead mt-4 max-w-lg text-steel">
-              Agora é só escolher por onde enviar. O resumo da sua solicitação já vai preenchido.
+              Seus dados ainda não foram enviados. Escolha um canal: a mensagem abre já preenchida e o envio é concluído
+              por você no WhatsApp ou no seu e-mail.
             </p>
             <div className="mt-10 flex flex-col gap-3 sm:flex-row">
-              <ActionLink href={whatsappLink(buildSummary(sent))} external icon="whatsapp" variant="solid" className="sm:min-w-64">
-                Enviar pelo WhatsApp
+              <ActionLink
+                href={whatsappLink(buildSummary(sent))}
+                external
+                icon="whatsapp"
+                variant="solid"
+                className="sm:min-w-64"
+                onClick={() => setChannel("whatsapp")}
+              >
+                Abrir no WhatsApp
               </ActionLink>
               <ActionLink
                 href={`mailto:${site.contact.email}?subject=${encodeURIComponent("Solicitação de cotação")}&body=${encodeURIComponent(buildSummary(sent))}`}
-                external
                 variant="outline"
                 className="sm:min-w-64"
+                onClick={() => setChannel("email")}
               >
-                Enviar por e-mail
+                Abrir no e-mail
               </ActionLink>
             </div>
+
+            <p aria-live="polite" className="t-body mt-6 max-w-lg min-h-[3.2em]">
+              {channel === "whatsapp" &&
+                "Abrimos o WhatsApp com a mensagem preenchida. A solicitação só chega à nossa equipe depois que você enviar a mensagem na conversa."}
+              {channel === "email" &&
+                "Abrimos o seu aplicativo de e-mail com a mensagem preenchida. Confira os dados e envie por lá para que a solicitação chegue à nossa equipe."}
+            </p>
+
+            <details className="mt-4 border-t border-line pt-5">
+              <summary className="cursor-pointer text-[0.9375rem] font-medium">Ver ou copiar o resumo</summary>
+              <pre className="mt-4 overflow-x-auto bg-paper p-4 font-sans text-[0.875rem] leading-relaxed whitespace-pre-wrap text-ink">
+                {buildSummary(sent)}
+              </pre>
+              <div className="mt-3 flex flex-wrap items-center gap-4">
+                <button
+                  type="button"
+                  className="t-small cursor-pointer text-krona underline-offset-4 hover:underline"
+                  onClick={async () => {
+                    try {
+                      await navigator.clipboard.writeText(buildSummary(sent));
+                      setCopy("ok");
+                    } catch {
+                      setCopy("error");
+                    }
+                  }}
+                >
+                  Copiar resumo
+                </button>
+                <span aria-live="polite" className="t-small text-steel">
+                  {copy === "ok" && "Resumo copiado. Cole na conversa ou no e-mail."}
+                  {copy === "error" && "Não foi possível copiar automaticamente. Selecione o texto acima e copie manualmente."}
+                </span>
+              </div>
+            </details>
+
             <button
               type="button"
               className="t-small mt-8 cursor-pointer text-krona underline-offset-4 hover:underline"
               onClick={() => {
                 reset(sent);
                 setSent(null);
+                setChannel(null);
+                setCopy("idle");
               }}
             >
               Corrigir alguma informação
@@ -326,10 +369,10 @@ export function QuoteForm() {
 
             <div className="flex flex-col gap-4 border-t border-line pt-8 sm:flex-row sm:items-center sm:justify-between">
               <p className="t-small max-w-xs text-steel">
-                Ao continuar, você revisa os dados e escolhe se prefere enviar pelo WhatsApp ou por e-mail.
+                Nada é enviado nesta etapa. Você revisa os dados e escolhe se prefere enviar pelo WhatsApp ou por e-mail.
               </p>
               <ActionButton type="submit" variant="solid" disabled={isSubmitting} className="sm:min-w-64" aria-live="polite">
-                {isSubmitting ? "Conferindo dados..." : "Continuar"}
+                {isSubmitting ? "Conferindo dados..." : "Revisar solicitação"}
               </ActionButton>
             </div>
             {Object.keys(errors).length > 0 && (

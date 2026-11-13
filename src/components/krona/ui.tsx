@@ -77,6 +77,14 @@ export function ActionLink({
   ...rest
 }: ActionProps & { href: string; external?: boolean } & Omit<ComponentProps<"a">, "href" | "className" | "children">) {
   const cls = cn(base, variants[variant], className);
+  // Esquemas de protocolo (mailto:, tel:) abrem o aplicativo do sistema: âncora simples, sem nova aba.
+  if (/^(mailto|tel):/.test(href)) {
+    return (
+      <a href={href} className={cls} {...rest}>
+        <ActionInner icon={icon}>{children}</ActionInner>
+      </a>
+    );
+  }
   if (external) {
     return (
       <a href={href} target="_blank" rel="noopener noreferrer" className={cls} {...rest}>

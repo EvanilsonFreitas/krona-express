@@ -1,36 +1,8 @@
 import { MaskReveal, Reveal } from "@/components/krona/motion";
 import { Photo } from "@/components/krona/photo";
+import { processSteps } from "@/config/site";
 
-const steps = [
-  {
-    title: "Solicitação",
-    text: "Você envia os dados da carga pelo formulário, pelo WhatsApp ou por telefone: origem, destino, peso, volumes e o prazo que precisa.",
-  },
-  {
-    title: "Análise",
-    text: "Nossa equipe avalia a carga e as condições de coleta e de entrega. Se faltar alguma informação, entramos em contato com você.",
-  },
-  {
-    title: "Planejamento",
-    text: "Definimos a rota, o tipo de veículo e a data de coleta mais adequados para esse embarque.",
-  },
-  {
-    title: "Proposta",
-    text: "Enviamos a proposta com a modalidade indicada e as condições do transporte. Com o seu aceite, a coleta é agendada.",
-  },
-  {
-    title: "Coleta",
-    text: "Retiramos a carga no endereço combinado e conferimos a nota fiscal antes da saída.",
-  },
-  {
-    title: "Acompanhamento",
-    text: "Enquanto a carga está na estrada, você fala com a nossa equipe sempre que quiser saber como está o transporte.",
-  },
-  {
-    title: "Entrega",
-    text: "Depois da entrega no destino, confirmamos com você a conclusão do serviço.",
-  },
-];
+const steps = processSteps;
 
 /** Processo de atendimento, apresentado como lista institucional (sem timeline conceitual). */
 export function RouteProcess() {
