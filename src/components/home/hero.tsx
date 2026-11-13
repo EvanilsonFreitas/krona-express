@@ -11,7 +11,7 @@ const lines = ["Fretes rodoviários", "planejados com você."];
 
 /**
  * Hero cinematográfico.
- * Footage: rodovia com caminhões em luz rasante (tomada aérea). Representa o universo
+ * Footage: caminhões em rodovia de serra cercada de mata (tomada aérea). Representa o universo
  * rodoviário, não uma frota própria. Loop codificado com crossfade (sem emenda visível).
  * - <picture> art-directed por baixo (poster desktop/mobile) = LCP rápido e fallback.
  * - Vídeo mobile vertical recortado sobre a rodovia; desktop 1080p WebM/MP4.

@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     siteName: site.name,
     title: "Krona Express | Transporte rodoviário de cargas",
     description: site.description,
-    images: [{ url: "media/hero/hero-poster.jpg", width: 1280, height: 720, alt: "Rodovia com caminhões ao entardecer" }],
+    images: [{ url: "media/hero/hero-poster.jpg", width: 1280, height: 720, alt: "Caminhões subindo uma rodovia de serra cercada de mata" }],
   },
   twitter: { card: "summary_large_image" },
   icons: { icon: asset("/brand/logo/primary/Logo_Krona_Original.png") },
