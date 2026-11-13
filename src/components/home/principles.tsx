@@ -1,11 +1,12 @@
-import { Reveal } from "@/components/krona/motion";
+import { MaskReveal, Reveal } from "@/components/krona/motion";
+import { Photo } from "@/components/krona/photo";
 
 const items = [
-  { title: "Atendimento direto", text: "Você conversa com quem cuida do seu frete. Não há central de atendimento nem repasse de recados entre setores." },
-  { title: "Cada embarque é planejado", text: "Volume, rota e prazo mudam de uma carga para outra. Por isso a operação é definida caso a caso." },
-  { title: "Informação durante o transporte", text: "Se você quiser saber como está a sua carga, basta falar com a nossa equipe pelo canal que preferir." },
-  { title: "Respostas rápidas", text: "Por sermos uma empresa enxuta, ajustes e decisões não dependem de várias aprovações internas." },
-  { title: "Parceiros de confiança", text: "Quando uma operação exige, trabalhamos com parceiros de transporte que conhecemos e acompanhamos de perto." },
+  { title: "Contato com quem conduz a operação", text: "Você conversa com a pessoa que organiza o seu frete, sem central de atendimento e sem repasse de recados entre setores." },
+  { title: "Operação definida para cada carga", text: "Volume, rota, prazo e restrições mudam de um embarque para outro. Por isso a operação é planejada caso a caso." },
+  { title: "Informação durante o transporte", text: "Quando quiser saber como está a sua carga, fale com a nossa equipe pelo WhatsApp ou por telefone." },
+  { title: "Agilidade comercial", text: "Cotações, ajustes de coleta e mudanças de última hora recebem resposta rápida e objetiva." },
+  { title: "Parceiros de transporte qualificados", text: "Quando a operação exige, trabalhamos com parceiros que conhecemos, e a Krona segue responsável pelo atendimento." },
 ];
 
 export function Principles() {
@@ -21,12 +22,21 @@ export function Principles() {
                 </h2>
               </Reveal>
               <p className="t-body mt-6 max-w-sm text-steel">
-                Somos uma empresa pequena e não tentamos parecer maior. O que oferecemos é atenção ao seu transporte e
-                um atendimento que conhece a sua operação.
+                Atendimento direto, respostas objetivas e acompanhamento próximo do seu frete, do pedido de cotação até a
+                confirmação da entrega.
               </p>
+              <MaskReveal className="mt-10">
+                <Photo
+                  name="rodovia-caminhao-dia"
+                  alt="Caminhão basculante trafegando por uma rodovia duplicada em dia de céu aberto"
+                  sizes="(min-width: 1024px) 40vw, 100vw"
+                  focus="70% 60%"
+                  className="aspect-[16/10] w-full bg-ink"
+                />
+              </MaskReveal>
             </div>
           </div>
-          <ul className="col-span-12 lg:col-span-7">
+          <ul className="col-span-12 lg:col-span-6 lg:col-start-7">
             {items.map((item, i) => (
               <Reveal
                 as="li"
@@ -34,10 +44,10 @@ export function Principles() {
                 delay={i * 0.04}
                 x={0}
                 y={16}
-                className="grid gap-x-8 gap-y-3 border-t border-line py-9 first:border-t-0 first:pt-0 md:grid-cols-2 md:py-11"
+                className="border-t border-line py-9 first:border-t-0 first:pt-0 md:py-11"
               >
                 <h3 className="t-h3">{item.title}</h3>
-                <p className="t-body text-steel">{item.text}</p>
+                <p className="t-body mt-3 max-w-lg text-steel">{item.text}</p>
               </Reveal>
             ))}
           </ul>

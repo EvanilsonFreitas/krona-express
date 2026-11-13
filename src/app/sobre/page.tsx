@@ -9,7 +9,7 @@ import { CtaList } from "@/components/krona/cta-list";
 export const metadata: Metadata = {
   title: "Sobre",
   description:
-    "Conheça a Krona Express, transportadora rodoviária de cargas com estrutura enxuta, atendimento direto e acompanhamento durante todo o transporte.",
+    "Conheça a Krona Express, transportadora rodoviária de cargas com atendimento direto, operação planejada para cada embarque e acompanhamento durante todo o transporte.",
   alternates: { canonical: "sobre/" },
 };
 
@@ -42,8 +42,8 @@ export default function SobrePage() {
       <main id="conteudo">
         <PageHero
           label="Sobre a Krona"
-          title={["Uma transportadora", "do tamanho certo"]}
-          lead="Estrutura enxuta, atendimento direto e responsabilidade sobre cada carga que transportamos."
+          title={["Transporte de cargas", "conduzido de perto"]}
+          lead="Atendimento direto, operação planejada para cada embarque e responsabilidade sobre cada carga que transportamos."
           image={{ name: "cabine-estrada", alt: "Vista da estrada a partir da cabine de um caminhão", focus: "50% 60%" }}
         />
 
@@ -67,9 +67,9 @@ export default function SobrePage() {
                 <div className="mt-10 grid gap-8 md:grid-cols-2 md:gap-12">
                   <Reveal delay={0.06}>
                     <p className="t-body text-steel">
-                      Escolhemos manter uma estrutura enxuta. Quem atende o cliente conhece a operação, e quem planeja o
-                      frete acompanha a execução. Essa proximidade nos permite responder rápido e ajustar o que for
-                      preciso.
+                      Quem atende o cliente conhece a operação, e quem planeja o frete acompanha a execução. Assim, as
+                      respostas chegam mais rápido e qualquer ajuste na coleta, na rota ou na entrega é resolvido sem
+                      intermediários.
                     </p>
                   </Reveal>
                   <Reveal delay={0.12}>
@@ -79,6 +79,17 @@ export default function SobrePage() {
                     </p>
                   </Reveal>
                 </div>
+              </div>
+              <div className="col-span-12 mt-6 md:mt-12">
+                <MaskReveal>
+                  <Photo
+                    name="carreta-sider-patio"
+                    alt="Cavalo mecânico com carreta sider estacionado em pátio"
+                    sizes="100vw"
+                    focus="50% 55%"
+                    className="aspect-[4/3] w-full bg-ink md:aspect-[21/9]"
+                  />
+                </MaskReveal>
               </div>
             </div>
           </div>

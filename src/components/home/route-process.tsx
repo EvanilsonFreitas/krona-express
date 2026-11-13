@@ -1,4 +1,5 @@
-import { Reveal } from "@/components/krona/motion";
+import { MaskReveal, Reveal } from "@/components/krona/motion";
+import { Photo } from "@/components/krona/photo";
 
 const steps = [
   {
@@ -48,10 +49,19 @@ export function RouteProcess() {
                 O processo é o mesmo para todos os embarques, seja qual for o tamanho da carga. Assim você sabe o que
                 acontece em cada momento e com quem falar.
               </p>
+              <MaskReveal className="mt-12">
+                <Photo
+                  name="doca-carreta-plataforma"
+                  alt="Caminhão com carreta posicionado na plataforma de carregamento"
+                  sizes="40vw"
+                  focus="55% 50%"
+                  className="aspect-[4/3] w-full bg-navy"
+                />
+              </MaskReveal>
             </div>
           </div>
 
-          <ol className="col-span-12 space-y-12 md:space-y-14 lg:col-span-6 lg:col-start-7">
+          <ol className="col-span-12 space-y-12 md:space-y-14 lg:col-span-6 lg:col-start-7 lg:pt-4">
             {steps.map((s, i) => (
               <Reveal as="li" key={s.title} x={0} y={18} className="grid grid-cols-[2.5rem_1fr] gap-x-4 md:grid-cols-[3.5rem_1fr]">
                 <span className="t-h3 text-white/35" aria-hidden="true">
