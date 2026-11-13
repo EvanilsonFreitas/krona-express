@@ -24,20 +24,6 @@ export function WhatsAppIcon({ className }: { className?: string }) {
 }
 
 /* -------------------------------------------------------------------------- */
-/* Eyebrow — índice de seção em mono: "02 — Serviços"                          */
-/* -------------------------------------------------------------------------- */
-
-export function Eyebrow({ index, children, className, inverse = false }: { index?: string; children: ReactNode; className?: string; inverse?: boolean }) {
-  return (
-    <p className={cn("t-label flex items-center gap-3", inverse ? "text-steel-2" : "text-steel", className)}>
-      {index && <span className={inverse ? "text-white" : "text-ink"}>{index}</span>}
-      {index && <span aria-hidden="true" className={cn("h-px w-6", inverse ? "bg-white/40" : "bg-ink/40")} />}
-      <span>{children}</span>
-    </p>
-  );
-}
-
-/* -------------------------------------------------------------------------- */
 /* Actions — botões e links. Superfícies retas, varredura no hover, seta em    */
 /* deslocamento. Altura mínima de 52px (alvo de toque confortável).            */
 /* -------------------------------------------------------------------------- */

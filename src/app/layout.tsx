@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, IBM_Plex_Mono } from "next/font/google";
+import { Archivo } from "next/font/google";
 import { cn } from "@/lib/utils";
 import { site } from "@/config/site";
 import { asset } from "@/lib/asset";
@@ -14,18 +14,11 @@ const archivo = Archivo({
   display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  variable: "--font-plex-mono",
-  display: "swap",
-});
-
 export const metadata: Metadata = {
   metadataBase: new URL(`${site.url}/`),
   title: {
-    default: "Krona Express — Transporte rodoviário de cargas",
-    template: "%s — Krona Express",
+    default: "Krona Express | Transporte rodoviário de cargas",
+    template: "%s | Krona Express",
   },
   description: site.description,
   applicationName: site.name,
@@ -34,7 +27,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "pt_BR",
     siteName: site.name,
-    title: "Krona Express — Transporte rodoviário de cargas",
+    title: "Krona Express | Transporte rodoviário de cargas",
     description: site.description,
     images: [{ url: "media/hero/hero-poster.jpg", width: 1280, height: 720, alt: "Rodovia com caminhões ao entardecer" }],
   },
@@ -63,11 +56,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="pt-BR" className={cn(archivo.variable, plexMono.variable)} suppressHydrationWarning>
+    <html lang="pt-BR" className={cn(archivo.variable)} suppressHydrationWarning>
       <body suppressHydrationWarning>
         <a
           href="#conteudo"
-          className="t-label sr-only z-[70] bg-ink px-4 py-3 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
+          className="sr-only z-[70] bg-ink px-4 py-3 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4"
         >
           Pular para o conteúdo
         </a>

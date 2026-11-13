@@ -1,12 +1,11 @@
-import { Eyebrow } from "@/components/krona/ui";
 import { Reveal } from "@/components/krona/motion";
 
 const items = [
-  { title: "Atendimento direto", text: "Você fala com quem planeja e acompanha a sua carga — sem central, sem repasse de recados." },
-  { title: "Operação sob medida", text: "Cada embarque é planejado conforme volume, rota e prazo. Não existe pacote padrão." },
-  { title: "Acompanhamento de perto", text: "Informação ao longo do percurso, da coleta à entrega, sem que você precise correr atrás." },
-  { title: "Decisão rápida", text: "Uma estrutura enxuta responde e ajusta a operação sem camadas de aprovação." },
-  { title: "Parceiros selecionados", text: "Quando a operação pede, coordenamos com parceiros de transporte que conhecemos e acompanhamos." },
+  { title: "Atendimento direto", text: "Você conversa com quem cuida do seu frete. Não há central de atendimento nem repasse de recados entre setores." },
+  { title: "Cada embarque é planejado", text: "Volume, rota e prazo mudam de uma carga para outra. Por isso a operação é definida caso a caso." },
+  { title: "Informação durante o transporte", text: "Se você quiser saber como está a sua carga, basta falar com a nossa equipe pelo canal que preferir." },
+  { title: "Respostas rápidas", text: "Por sermos uma empresa enxuta, ajustes e decisões não dependem de várias aprovações internas." },
+  { title: "Parceiros de confiança", text: "Quando uma operação exige, trabalhamos com parceiros de transporte que conhecemos e acompanhamos de perto." },
 ];
 
 export function Principles() {
@@ -16,29 +15,32 @@ export function Principles() {
         <div className="k-grid gap-y-14">
           <div className="col-span-12 lg:col-span-5">
             <div className="lg:sticky lg:top-[calc(var(--header-h)+2rem)]">
-              <Eyebrow index="04">Por que a Krona</Eyebrow>
               <Reveal>
-                <h2 id="diferenciais" className="t-h2 mt-6 max-w-[12ch]">
-                  Enxuta por escolha. Profissional por princípio.
+                <h2 id="diferenciais" className="t-h2 max-w-[13ch]">
+                  Por que trabalhar com a Krona
                 </h2>
               </Reveal>
               <p className="t-body mt-6 max-w-sm text-steel">
-                Não precisamos parecer maiores do que somos. Precisamos que sua carga chegue — e que você saiba
-                exatamente como ela está chegando.
+                Somos uma empresa pequena e não tentamos parecer maior. O que oferecemos é atenção ao seu transporte e
+                um atendimento que conhece a sua operação.
               </p>
             </div>
           </div>
-          <ol className="col-span-12 border-t border-line lg:col-span-7">
+          <ul className="col-span-12 lg:col-span-7">
             {items.map((item, i) => (
-              <Reveal as="li" key={item.title} delay={i * 0.04} className="group grid grid-cols-12 gap-x-4 gap-y-3 border-b border-line py-8 md:py-10">
-                <span className="t-label col-span-2 pt-2 text-steel md:col-span-1">0{i + 1}</span>
-                <h3 className="t-h3 col-span-10 transition-transform duration-500 ease-[var(--ease-route)] group-hover:translate-x-1.5 md:col-span-5">
-                  {item.title}
-                </h3>
-                <p className="t-body col-span-10 col-start-3 text-steel md:col-span-6 md:col-start-auto">{item.text}</p>
+              <Reveal
+                as="li"
+                key={item.title}
+                delay={i * 0.04}
+                x={0}
+                y={16}
+                className="grid gap-x-8 gap-y-3 border-t border-line py-9 first:border-t-0 first:pt-0 md:grid-cols-2 md:py-11"
+              >
+                <h3 className="t-h3">{item.title}</h3>
+                <p className="t-body text-steel">{item.text}</p>
               </Reveal>
             ))}
-          </ol>
+          </ul>
         </div>
       </div>
     </section>

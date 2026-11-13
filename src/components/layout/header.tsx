@@ -58,7 +58,7 @@ export function Header({ tone = "dark" }: { tone?: Tone }) {
       )}
     >
       <div className="k-container flex h-[var(--header-h)] items-center justify-between gap-6">
-        <Link href="/" aria-label="Krona Express — página inicial" className="relative block h-11 w-[66px] shrink-0">
+        <Link href="/" aria-label="Krona Express, página inicial" className="relative block h-11 w-[66px] shrink-0">
           {/* eslint-disable-next-line @next/next/no-img-element -- logotipo estático; duas versões para fundos claro/escuro */}
           <img
             src={asset(onDark ? "/brand/logo/monochrome/Logo_Krona_Branco.png" : "/brand/logo/primary/Logo_Krona_Original.png")}
@@ -89,9 +89,7 @@ export function Header({ tone = "dark" }: { tone?: Tone }) {
                         layoutId="nav-route"
                         transition={reduce ? { duration: 0 } : { duration: 0.6, ease: routeEase }}
                         className="absolute inset-x-4 bottom-1.5 h-px bg-current"
-                      >
-                        <span className="absolute -top-[2px] right-0 size-[5px] rounded-full bg-gold" />
-                      </motion.span>
+                      />
                     )}
                   </Link>
                 </li>
@@ -101,7 +99,7 @@ export function Header({ tone = "dark" }: { tone?: Tone }) {
         </nav>
 
         <div className="hidden items-center gap-6 lg:flex">
-          <a href={site.contact.phoneHref} className="t-num text-[0.8125rem] opacity-70 transition-opacity hover:opacity-100">
+          <a href={site.contact.phoneHref} className="t-num text-[0.875rem] opacity-75 transition-opacity hover:opacity-100">
             {site.contact.phoneDisplay}
           </a>
           <ActionLink href="/cotacao" variant={onDark ? "light" : "solid"} className="min-h-11 px-4 text-[0.875rem]">
@@ -162,13 +160,11 @@ export function Header({ tone = "dark" }: { tone?: Tone }) {
                                 href={item.href}
                                 onClick={() => setOpen(false)}
                                 aria-current={active ? "page" : undefined}
-                                className="flex items-baseline gap-5 py-4"
+                                className="block py-4"
                               >
-                                <span className="t-label w-6 text-steel-2">0{i + 1}</span>
                                 <span className={cn("text-[2.25rem] leading-none font-[520] tracking-[-0.035em]", active ? "text-white" : "text-white/60")}>
                                   {item.label}
                                 </span>
-                                {active && <span className="ml-auto size-1.5 self-center rounded-full bg-gold" aria-hidden="true" />}
                               </Link>
                             </motion.li>
                           );
@@ -183,7 +179,7 @@ export function Header({ tone = "dark" }: { tone?: Tone }) {
                         </span>
                         <ArrowIcon />
                       </a>
-                      <div className="t-num flex flex-wrap justify-between gap-x-6 gap-y-1 pt-2 text-[0.8125rem] text-steel-2">
+                      <div className="flex flex-wrap justify-between gap-x-6 gap-y-1 pt-2 text-[0.875rem] text-steel-2">
                         <a href={site.contact.phoneHref}>{site.contact.phoneDisplay}</a>
                         <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>
                       </div>

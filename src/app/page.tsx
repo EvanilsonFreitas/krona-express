@@ -21,11 +21,10 @@ export default function Home() {
         <ImageBand
           name="retrovisor-estrada"
           alt="Rodovia vista pelo retrovisor de um veículo em movimento"
-          label="Acompanhamento"
-          statement="Da coleta ao destino, sua carga segue acompanhada — e você, informado."
+          statement="Durante todo o transporte, você sabe com quem falar sobre a sua carga."
           focus="55% 50%"
         />
-        <CtaList index="05" />
+        <CtaList />
       </main>
       <Footer />
     </>

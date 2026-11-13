@@ -55,23 +55,6 @@ export function MaskReveal({ children, className, delay = 0 }: { children: React
   );
 }
 
-/** Linha de rota que se desenha ao entrar na tela, terminando em um nó. */
-export function RouteRule({ className, inverse = false, delay = 0 }: { className?: string; inverse?: boolean; delay?: number }) {
-  const reduce = useReducedMotion();
-  return (
-    <div className={cn("relative h-px w-full", className)} aria-hidden="true">
-      <div className={cn("absolute inset-0", inverse ? "bg-line-inverse" : "bg-line")} />
-      <motion.div
-        className={cn("absolute inset-y-0 left-0 w-full origin-left", inverse ? "bg-white/70" : "bg-ink")}
-        initial={reduce ? false : { scaleX: 0 }}
-        whileInView={{ scaleX: 1 }}
-        viewport={{ once: true, amount: 1 }}
-        transition={{ duration: 1.4, ease: routeEase, delay }}
-      />
-    </div>
-  );
-}
-
 /**
  * Texto revelado palavra a palavra conforme o scroll avança.
  * Leitura completa garantida: sem JS ou com reduced-motion, o texto aparece inteiro.

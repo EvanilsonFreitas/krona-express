@@ -6,7 +6,7 @@ import { AnimatePresence, motion, useInView, useReducedMotion } from "motion/rea
 import { services, type ServiceId } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { Photo } from "@/components/krona/photo";
-import { ArrowIcon, Eyebrow } from "@/components/krona/ui";
+import { ArrowIcon } from "@/components/krona/ui";
 import { Reveal, routeEase } from "@/components/krona/motion";
 
 const images: Record<ServiceId, { name: string; alt: string; focus?: string }> = {
@@ -23,7 +23,6 @@ const images: Record<ServiceId, { name: string; alt: string; focus?: string }> =
 export function ServicesEditorial() {
   const [active, setActive] = useState<ServiceId>("lotacao");
   const reduce = useReducedMotion();
-  const current = services.find((s) => s.id === active)!;
 
   return (
     <section className="k-section border-t border-line bg-paper" aria-labelledby="servicos-home">
@@ -52,25 +51,18 @@ export function ServicesEditorial() {
                   </motion.div>
                 </AnimatePresence>
               </div>
-              <div className="t-label mt-4 flex justify-between text-steel">
-                <span>
-                  <span className="text-ink">{current.index}</span> / 04 — {current.title}
-                </span>
-                <span>{current.code}</span>
-              </div>
             </div>
           </div>
 
           <div className="col-span-12 lg:col-span-7 lg:col-start-6 xl:col-span-6 xl:col-start-7">
-            <Eyebrow index="02">Serviços</Eyebrow>
             <Reveal>
-              <h2 id="servicos-home" className="t-h2 mt-6 max-w-[14ch]">
-                Quatro formas de mover sua carga.
+              <h2 id="servicos-home" className="t-h2 max-w-[14ch]">
+                Serviços de transporte
               </h2>
             </Reveal>
             <p className="t-body mt-6 max-w-lg text-steel">
-              Cada modalidade parte do mesmo princípio: entender a carga antes de definir a operação. A indicação
-              certa vem depois da conversa — não de uma tabela.
+              Trabalhamos com quatro modalidades de transporte rodoviário. Depois de conhecer a sua carga, indicamos a que
+              faz mais sentido para o volume, o prazo e o destino.
             </p>
 
             <ol className="mt-14 border-t border-line md:mt-20">
@@ -106,8 +98,7 @@ function ServiceRow({ id, active, onActivate }: { id: ServiceId; active: boolean
         className="group block py-8 md:py-10"
         aria-describedby={`svc-${id}-summary`}
       >
-        <div className="flex items-baseline gap-5 md:gap-8">
-          <span className={cn("t-label w-6 shrink-0 transition-colors duration-300", active ? "text-ink" : "text-steel")}>{s.index}</span>
+        <div className="flex flex-wrap items-baseline justify-between gap-x-8 gap-y-2">
           <h3
             className={cn(
               "text-[clamp(2.1rem,1.3rem+3vw,4rem)] leading-[0.98] font-[520] tracking-[-0.038em] transition-[color,transform] duration-500 ease-[var(--ease-route)] [font-variation-settings:'wdth'_92]",
@@ -116,11 +107,11 @@ function ServiceRow({ id, active, onActivate }: { id: ServiceId; active: boolean
           >
             {s.title}
           </h3>
-          <span className="t-label ml-auto hidden shrink-0 text-steel sm:block">{s.code}</span>
+          <span className="t-label text-steel">{s.code}</span>
         </div>
         <div className={cn("grid transition-[grid-template-rows] duration-500 ease-[var(--ease-route)] lg:grid-rows-[0fr]", active && "lg:grid-rows-[1fr]")}>
           <div className="overflow-hidden">
-            <div className="flex flex-col gap-5 pt-5 pl-11 md:flex-row md:items-end md:justify-between md:pl-14">
+            <div className="flex flex-col gap-5 pt-5 md:flex-row md:items-end md:justify-between">
               <p id={`svc-${id}-summary`} className="t-body max-w-md text-steel">
                 {s.summary}
               </p>

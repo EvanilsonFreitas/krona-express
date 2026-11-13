@@ -9,14 +9,14 @@ export const site = {
   name: "Krona Express",
   url: "https://evanilsonfreitas.github.io/krona-express",
   description:
-    "Transporte rodoviário de cargas lotação, fracionada, logística reversa e operações dedicadas — planejado para cada embarque e acompanhado de perto, da coleta à entrega.",
+    "Transporte rodoviário de cargas para empresas: lotação, carga fracionada, logística reversa e operações dedicadas, com atendimento direto e acompanhamento durante todo o transporte.",
   contact: {
     phoneDisplay: "(11) 4000-0000",
     phoneHref: "tel:+551140000000",
     whatsappNumber: "551140000000",
     email: "comercial@kronaexpress.com.br",
     hours: "Segunda a sexta, das 8h às 18h",
-    address: ["Rua da Logística, 1000", "São Paulo — SP"],
+    address: ["Rua da Logística, 1000", "São Paulo, SP"],
     cnpj: "00.000.000/0001-00",
     instagram: "https://instagram.com/kronaexpress",
   },
@@ -53,9 +53,9 @@ export const services: Service[] = [
     index: "01",
     title: "Lotação",
     short: "Lotação",
-    code: "FTL",
+    code: "Carga completa (FTL)",
     summary:
-      "Um veículo dedicado à sua carga, da origem ao destino, sem paradas para consolidação com outras remessas.",
+      "Um veículo exclusivo para a sua carga, que sai da origem e segue direto para o destino, sem dividir espaço com outras remessas.",
     quoteValue: "lotacao",
   },
   {
@@ -63,9 +63,9 @@ export const services: Service[] = [
     index: "02",
     title: "Fracionada",
     short: "Fracionada",
-    code: "LTL",
+    code: "Carga compartilhada (LTL)",
     summary:
-      "Sua carga divide o veículo com outras remessas. Você paga pelo espaço que ocupa — ideal para volumes menores.",
+      "Sua carga divide o veículo com outras remessas e você paga pelo espaço que ocupa. Costuma ser a melhor opção para volumes menores.",
     quoteValue: "fracionada",
   },
   {
@@ -73,9 +73,9 @@ export const services: Service[] = [
     index: "03",
     title: "Logística reversa",
     short: "Reversa",
-    code: "Retorno",
+    code: "Devoluções e retornos",
     summary:
-      "Coleta de devoluções, trocas, embalagens e paletes retornáveis, com o mesmo cuidado do fluxo de ida.",
+      "Coletamos devoluções, trocas, embalagens e paletes retornáveis e levamos de volta ao ponto que você indicar.",
     quoteValue: "reversa",
   },
   {
@@ -83,9 +83,9 @@ export const services: Service[] = [
     index: "04",
     title: "Operações dedicadas",
     short: "Dedicadas",
-    code: "Sob medida",
+    code: "Operação sob medida",
     summary:
-      "Operações desenhadas com você: rotas, janelas de coleta e veículos definidos para uma necessidade específica.",
+      "Para empresas com uma rotina de transporte específica. Definimos com você rotas, horários de coleta e o tipo de veículo.",
     quoteValue: "dedicada",
   },
 ];

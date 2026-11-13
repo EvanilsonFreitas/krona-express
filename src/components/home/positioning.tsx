@@ -1,35 +1,37 @@
-import { Eyebrow, TextLink } from "@/components/krona/ui";
+import { TextLink } from "@/components/krona/ui";
 import { Reveal, ScrollText } from "@/components/krona/motion";
-
-const facts = ["Atendimento direto", "Planejamento por embarque", "Acompanhamento da coleta à entrega"];
 
 export function Positioning() {
   return (
     <section className="k-section bg-paper" aria-labelledby="posicionamento">
       <div className="k-container">
         <div className="k-grid gap-y-10">
-          <div className="col-span-12 lg:col-span-3">
-            <Eyebrow index="01">A Krona</Eyebrow>
-          </div>
-          <div className="col-span-12 lg:col-span-9">
+          <div className="col-span-12 lg:col-span-10 lg:col-start-2">
             <h2 id="posicionamento" className="sr-only">
-              Posicionamento
+              Sobre a Krona Express
             </h2>
             <ScrollText
-              className="text-[clamp(1.85rem,1.05rem+3.1vw,4.25rem)] leading-[1.04] font-[500] tracking-[-0.034em] text-ink [font-variation-settings:'wdth'_94]"
-              text="Somos uma transportadora enxuta. Menos camadas entre você e quem cuida da sua carga: atendimento direto, decisões rápidas e cada embarque acompanhado por quem o planejou."
+              className="text-[clamp(1.85rem,1.05rem+3.1vw,4.25rem)] leading-[1.06] font-[500] tracking-[-0.034em] text-ink [font-variation-settings:'wdth'_94]"
+              text="A Krona Express é uma transportadora de estrutura enxuta. Você fala diretamente com quem organiza o seu frete, e as respostas não precisam passar por várias áreas até chegar a você."
             />
-            <div className="mt-14 grid gap-px border-t border-line pt-6 sm:grid-cols-3 md:mt-20">
-              {facts.map((f, i) => (
-                <Reveal key={f} delay={i * 0.08} className="t-label flex items-start gap-3 py-2 text-steel">
-                  <span className="text-ink">0{i + 1}</span>
-                  {f}
-                </Reveal>
-              ))}
+            <div className="mt-14 grid gap-8 md:mt-20 md:grid-cols-2 md:gap-16 lg:w-5/6">
+              <Reveal>
+                <p className="t-body text-steel">
+                  Atendemos empresas que precisam transportar cargas pela rodovia com regularidade ou em embarques
+                  pontuais. Antes de propor qualquer solução, entendemos o que vai ser transportado, de onde sai, para
+                  onde vai e em qual prazo.
+                </p>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <p className="t-body text-steel">
+                  Com essas informações, indicamos a modalidade mais adequada e mantemos o mesmo contato com você durante
+                  todo o transporte.
+                </p>
+                <TextLink href="/sobre" className="mt-4">
+                  Conheça a Krona
+                </TextLink>
+              </Reveal>
             </div>
-            <TextLink href="/sobre" className="mt-8">
-              Conheça a Krona
-            </TextLink>
           </div>
         </div>
       </div>

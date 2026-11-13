@@ -2,7 +2,6 @@ import Link from "next/link";
 import { nav, services, site, whatsappLink } from "@/config/site";
 import { asset } from "@/lib/asset";
 import { ActionLink } from "@/components/krona/ui";
-import { RouteRule } from "@/components/krona/motion";
 
 export function Footer({ showStatement = false }: { showStatement?: boolean }) {
   const year = new Date().getFullYear();
@@ -24,7 +23,7 @@ export function Footer({ showStatement = false }: { showStatement?: boolean }) {
               </ActionLink>
             </div>
           </div>
-          <RouteRule inverse className="mt-[clamp(4rem,2rem+5vw,7rem)]" />
+          <div className="mt-[clamp(4rem,2rem+5vw,7rem)] h-px bg-line-inverse" />
         </div>
       )}
 
@@ -39,8 +38,8 @@ export function Footer({ showStatement = false }: { showStatement?: boolean }) {
           </div>
 
           <div className="col-span-6 md:col-span-2 lg:col-span-2">
-            <p className="t-label text-steel-2">Serviços</p>
-            <ul className="mt-5 space-y-2.5 t-small">
+            <p className="t-label text-white">Serviços</p>
+            <ul className="mt-4 space-y-2.5 t-small text-steel-2">
               {services.map((s) => (
                 <li key={s.id}>
                   <Link href={`/servicos#${s.id}`} className="k-link">
@@ -52,8 +51,8 @@ export function Footer({ showStatement = false }: { showStatement?: boolean }) {
           </div>
 
           <div className="col-span-6 md:col-span-2 lg:col-span-2">
-            <p className="t-label text-steel-2">Empresa</p>
-            <ul className="mt-5 space-y-2.5 t-small">
+            <p className="t-label text-white">Empresa</p>
+            <ul className="mt-4 space-y-2.5 t-small text-steel-2">
               {nav.slice(1).map((n) => (
                 <li key={n.href}>
                   <Link href={n.href} className="k-link">
@@ -65,8 +64,8 @@ export function Footer({ showStatement = false }: { showStatement?: boolean }) {
           </div>
 
           <div className="col-span-12 md:col-span-4 lg:col-span-3">
-            <p className="t-label text-steel-2">Atendimento</p>
-            <ul className="mt-5 space-y-2.5 t-small">
+            <p className="t-label text-white">Atendimento</p>
+            <ul className="mt-4 space-y-2.5 t-small text-steel-2">
               <li>
                 <a href={site.contact.phoneHref} className="k-link t-num">
                   {site.contact.phoneDisplay}
@@ -77,8 +76,8 @@ export function Footer({ showStatement = false }: { showStatement?: boolean }) {
                   {site.contact.email}
                 </a>
               </li>
-              <li className="text-steel-2">{site.contact.hours}</li>
-              <li className="text-steel-2">
+              <li>{site.contact.hours}</li>
+              <li>
                 {site.contact.address[0]}
                 <br />
                 {site.contact.address[1]}
@@ -90,11 +89,11 @@ export function Footer({ showStatement = false }: { showStatement?: boolean }) {
 
       <div className="border-t border-line-inverse">
         <div className="k-container flex flex-col gap-4 py-6 text-steel-2 md:flex-row md:items-center md:justify-between">
-          <p className="t-label">
-            © {year} {site.name} · CNPJ {site.contact.cnpj}
+          <p className="t-caption">
+            © {year} {site.name}. CNPJ {site.contact.cnpj}
           </p>
           <div className="flex items-center gap-3">
-            <span className="t-label">Desenvolvido por</span>
+            <span className="t-caption">Desenvolvido por</span>
             {/* eslint-disable-next-line @next/next/no-img-element -- logotipo do desenvolvedor (existente) */}
             <img src={asset("/brand/logo/symbol/logo_Onebi.svg")} alt="Onebi Analytics" width={80} height={28} className="h-6 w-auto" />
           </div>
