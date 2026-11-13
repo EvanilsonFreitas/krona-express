@@ -8,7 +8,7 @@ que não é publicado no site.
 - **Tratamento:** as fotos receberam uma gradação de cor uniforme (leve dessaturação e sombras frias) e foram
   exportadas em AVIF e WebP nas larguras 640, 1280 e 1920 px. Ficam em `public/images/photos/` com o padrão
   `<nome>-<largura>.<avif|webp>`.
-- **Imagens únicas:** cada foto aparece em um único lugar do site, conforme a regra do `CLAUDE.md`.
+- **Imagens únicas:** cada foto aparece em um único lugar do site, conforme a regra de UI do projeto.
 
 ## Vídeo do hero
 
